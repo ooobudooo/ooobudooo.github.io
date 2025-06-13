@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ooobudooo</title>
+	<link rel="stylesheet" href="template">
+	<link rel="shortcut icon" href="ooobudooo.ico" type="image/x-icon" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #000;
+            color: #e0e0e0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+        }
+        
+        .sidebar {
+            background-color: #0a0a0a;
+            border-radius: 6px;
+            padding: 20px;
+            height: fit-content;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #f0f0f0;
+            text-align: center;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 15px;
+        }
+        
+        .article-list {
+            list-style: none;
+        }
+        
+        .article-list li {
+            margin-bottom: 12px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .article-list li:hover {
+            background-color: #161b22;
+        }
+        
+        .article-list li.active {
+            background-color: #002080;
+            color: white;
+        }
+        
+        .back-home {
+            display: block;
+            width: 100%;
+            background: #002080;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 20px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        
+        .back-home:hover {
+            background: #2a7bf3;
+        }
+        
+        .article-container {
+            background-color: #0d1117;
+            border-radius: 6px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .markdown-content {
+            font-size: 16px;
+            text-align: left;
+        }
+        
+        .markdown-content h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 0 0 25px 0;
+            color: #f0f0f0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #30363d;
+        }
+        
+        .markdown-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 30px 0 18px;
+            color: #f0f0f0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #30363d;
+        }
+        
+        .markdown-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 25px 0 15px;
+            color: #f0f0f0;
+        }
+        
+        .markdown-content p {
+            margin-bottom: 16px;
+        }
+        
+        .markdown-content ul, 
+        .markdown-content ol {
+            padding-left: 40px;
+            margin-bottom: 20px;
+        }
+        
+        .markdown-content li {
+            margin-bottom: 8px;
+        }
+        
+        .markdown-content li p {
+            margin-bottom: 8px;
+        }
+        
+        .markdown-content blockquote {
+            border-left: 4px solid #30363d;
+            padding: 0 15px;
+            margin: 20px 0;
+            color: #8b949e;
+        }
+        
+        .markdown-content pre {
+            background-color: #161b22;
+            padding: 16px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 14px;
+            border: 1px solid #30363d;
+        }
+        
+        .markdown-content code {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            background-color: rgba(110, 118, 129, 0.4);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .markdown-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border: 1px solid #30363d;
+        }
+        
+        .markdown-content th {
+            background-color: #161b22;
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #30363d;
+            font-weight: 600;
+        }
+        
+        .markdown-content td {
+            padding: 10px;
+            border: 1px solid #30363d;
+        }
+        
+        .markdown-content a {
+            color: #58a6ff;
+            text-decoration: none;
+        }
+        
+        .markdown-content a:hover {
+            text-decoration: underline;
+        }
+        
+        .markdown-content img {
+            max-width: 100%;
+            border-radius: 4px;
+            margin: 15px 0;
+            border: 1px solid #30363d;
+        }
+        
+        @media (max-width: 800px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                margin-bottom: 20px;
+            }
+            
+            .markdown-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .markdown-content h2 {
+                font-size: 1.4rem;
+            }
+            
+            .markdown-content h3 {
+                font-size: 1.2rem;
+            }
+            
+            .markdown-content ul, 
+            .markdown-content ol {
+                padding-left: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">c穿越后，开局拿捏白月光</div>
+            
+            <ul class="article-list">
+                <li class="active" data-article="design">章节 1-5</li>
+                <li data-article="code">章节 6-10</li>
+                <li data-article="minimalism">章节 11-15</li>
+                <li data-article="web">章节 16-20</li>
+            </ul>
+            
+            <a href="#" class="back-home">返回主页</a>
+        </div>
+        
+        <div class="article-container">
+            <div id="markdownContent" class="markdown-content"></div>
+        </div>
+    </div>
+
+    <script>
+        // 初始化highlight.js
+        hljs.highlightAll();
+        
+        // Markdown内容
+        const markdownContent = {
+            "design": `# 简约设计哲学
+
+在信息过载的时代，简约设计成为了一种反抗。去除冗余元素，回归内容本身，让文字拥有呼吸的空间。
+
+## 设计原则
+
+- **内容至上**：所有设计服务于内容呈现
+- **克制表达**：删除所有非必要元素
+- **层次清晰**：通过灰度建立视觉层次
+- **极致专注**：消除任何可能的分心因素
+
+## 留白艺术
+
+> "留白不是空白，而是设计的呼吸空间。它赋予元素存在的意义，引导视线流动，创造视觉节奏。"
+
+在文字排版中，留白体现在：
+
+- 段落之间的间距
+- 行与行之间的行高
+- 文字与边缘的距离
+- 标题与正文的间隔
+
+## 单色系的力量
+
+黑白灰看似简单，却能通过明度变化创造出丰富的层次：
+
+\`\`\`css
+/* 灰度层次示例 */
+body {
+    background: #000;  /* 背景色 */
+}
+
+.container {
+    background: #0d1117; /* 内容容器 */
+}
+
+.text-primary {
+    color: #fff;    /* 标题文本 */
+}
+
+.text-secondary {
+    color: #e0e0e0; /* 正文文本 */
+}
+
+.text-tertiary {
+    color: #aaa;    /* 辅助信息 */
+}
+\`\`\`
+
+## 表格示例
+
+| 设计元素 | 作用 | 示例 |
+|----------|------|------|
+| 负空间 | 创造视觉焦点 | 段落间距 |
+| 字体层次 | 建立信息结构 | 标题大小差异 |
+| 灰度对比 | 增强可读性 | 正文与背景的明度差 |
+
+## 结语
+
+在纷繁复杂的世界里，简约是最高级的复杂。当我们剥离所有装饰，剩下的才是真正重要的东西。
+`,
+            "code": `# 代码的艺术
+
+编程不仅是技术，更是一种创造性的表达方式。优秀的代码如同优美的散文，清晰、简洁、富有表现力。
+
+## 代码美学原则
+
+1. **可读性至上**：
+   - 有意义的命名
+   - 一致的代码风格
+   - 适当的注释
+
+2. **简洁性**：
+   - DRY原则（Don't Repeat Yourself）
+   - 单一职责原则
+   - 避免过度设计
+
+3. **表现力**：
+   - 使用语言特性表达意图
+   - 合理的抽象层次
+   - 优雅的错误处理
+
+## 代码示例
+
+\`\`\`javascript
+// 函数式编程示例：数组处理
+const numbers = [1, 2, 3, 4, 5];
+
+// 链式调用
+const result = numbers
+  .filter(n => n % 2 === 0)
+  .map(n => n * 2)
+  .reduce((sum, n) => sum + n, 0);
+
+console.log(result); // 输出: 12
+\`\`\`
+
+\`\`\`python
+# 上下文管理器示例：文件处理
+def process_file(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            content = file.read()
+            # 处理文件内容
+            return content.upper()
+    except FileNotFoundError:
+        print(f"文件 {file_path} 不存在")
+    except Exception as e:
+        print(f"处理文件时出错: {str(e)}")
+\`\`\`
+
+## 编程范式比较
+
+| 范式 | 特点 | 适用场景 |
+|------|------|----------|
+| 面向对象 | 封装、继承、多态 | 大型复杂系统 |
+| 函数式 | 无副作用、纯函数 | 数据处理、并发编程 |
+| 过程式 | 顺序执行、简单直接 | 小型脚本、性能关键代码 |
+
+## 优秀代码的特征
+
+- 如同阅读散文般自然
+- 自解释的命名和结构
+- 适度的注释（解释为什么，而不是做什么）
+- 一致的风格和模式
+- 优雅的错误处理
+`,
+            "minimalism": `# 极简主义的实践
+
+极简主义不仅是设计风格，更是一种生活哲学。它倡导"少即是多"，专注于真正重要的事物。
+
+## 设计中的极简主义
+
+### 核心原则：
+1. 删除不必要的元素
+2. 强调核心内容
+3. 创造空间感
+4. 使用有限色彩
+
+### 网页设计应用：
+- 充足的留白
+- 有限的色彩方案
+- 清晰的视觉层次
+- 响应式布局
+
+## 极简主义的好处
+
+> "极简主义不是要剥夺，而是要赋予力量。通过移除多余，我们为重要事物创造了空间。"
+
+- **提升专注力**：减少视觉干扰
+- **提高可读性**：内容更加突出
+- **加快加载速度**：减少资源需求
+- **增强适应性**：在各种设备上表现良好
+
+## 代码中的极简主义
+
+\`\`\`html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>极简网页</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      font-family: sans-serif;
+      background: #f8f8f8;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-weight: 300;
+      margin-bottom: 2rem;
+    }
+    p {
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>极简网页设计</h1>
+  <p>这个网页展示了极简主义的设计原则：</p>
+  <ul>
+    <li>没有不必要的元素</li>
+    <li>充足的留白空间</li>
+    <li>清晰的排版层次</li>
+    <li>有限的色彩方案</li>
+  </ul>
+</body>
+</html>
+\`\`\`
+
+## 极简主义实践步骤
+
+1. 识别核心内容
+2. 移除所有非必要元素
+3. 优化剩余元素的呈现
+4. 测试并迭代
+`,
+            "web": `# 现代网页设计原则
+
+随着互联网发展，网页设计已从单纯的美观追求转变为注重用户体验、性能和可访问性的综合学科。
+
+## 核心设计原则
+
+### 1. 用户中心设计
+- 理解目标用户
+- 创建用户画像
+- 用户旅程地图
+
+### 2. 响应式设计
+- 移动优先策略
+- 弹性网格布局
+- 媒体查询应用
+
+### 3. 性能优化
+- 资源最小化
+- 懒加载技术
+- 缓存策略
+
+### 4. 可访问性
+- 语义化HTML
+- 足够的对比度
+- 键盘导航支持
+
+## 设计工作流程
+
+\`\`\`mermaid
+graph TD
+    A[需求分析] --> B[线框图]
+    B --> C[视觉设计]
+    C --> D[前端实现]
+    D --> E[测试优化]
+    E --> F[发布]
+    F --> G[持续迭代]
+\`\`\`
+
+## 现代CSS技术
+
+\`\`\`css
+/* CSS Grid布局示例 */
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* 自定义属性 */
+:root {
+  --primary-color: #1a73e8;
+  --secondary-color: #f8f9fa;
+}
+
+.card {
+  background: var(--secondary-color);
+  border-radius: 8px;
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* 暗色模式支持 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --secondary-color: #202124;
+  }
+}
+\`\`\`
+
+## 前端框架比较
+
+| 框架 | 特点 | 适用场景 |
+|------|------|----------|
+| React | 组件化、虚拟DOM | 大型应用、复杂UI |
+| Vue | 渐进式、易上手 | 快速开发、中小型项目 |
+| Svelte | 编译时框架 | 高性能应用、轻量级项目 |
+| Angular | 全功能框架 | 企业级应用、TypeScript项目 |
+`
+        };
+
+        // 初始渲染Markdown
+        function renderMarkdown(articleId = 'design') {
+            const content = markdownContent[articleId] || markdownContent['design'];
+            document.getElementById('markdownContent').innerHTML = marked.parse(content);
+            
+            // 重新高亮所有代码块
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        }
+
+        // 文章选择事件
+        document.querySelectorAll('.article-list li').forEach(item => {
+            item.addEventListener('click', function() {
+                // 移除所有active类
+                document.querySelectorAll('.article-list li').forEach(li => {
+                    li.classList.remove('active');
+                });
+                
+                // 添加active类到当前项
+                this.classList.add('active');
+                
+                // 渲染对应文章
+                const articleId = this.getAttribute('data-article');
+                renderMarkdown(articleId);
+            });
+        });
+
+        // 返回主页按钮
+        document.querySelector('.back-home').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('返回主页功能已触发！在实际应用中，这里可以跳转到您的主页');
+        });
+
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMarkdown();
+        });
+    </script>
+</body>
+</html>
