@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>高中物理公式大全</title>
+    <title>增强版Markdown阅读器</title>
 	<link rel="stylesheet" href="template">
 	<link rel="shortcut icon" href="ooobudooolow.png" type="image/x-icon" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
@@ -286,14 +286,14 @@
 <body>
     <div class="container">
         <div class="sidebar">
-            <div class="logo">高中物理公式大全</div>
+            <div class="logo">MD READER</div>
             
             <ul class="article-list">
-                <li class="active" data-article="design">运动学、力学</li>
-                <li data-article="code">电磁学</li>
-                <li data-article="minimalism">热学、光学、近代物理基础</li>
-                <li data-article="math">常见常数</li>
-                <li data-article="web"> </li>
+                <li class="active" data-article="design">设计哲学</li>
+                <li data-article="code">代码艺术</li>
+                <li data-article="minimalism">极简主义</li>
+                <li data-article="math">数学公式</li>
+                <li data-article="web">网页设计</li>
             </ul>
             
             <a href="#" class="back-home">返回主页</a>
@@ -312,327 +312,367 @@
         
         // Markdown内容
         const markdownContent = {
-            "design": `
-#运动学、力学
+            "design": `# 简约设计哲学
 
-平均速度： $\bar{v} = \frac{\Delta x}{\Delta t}$
-瞬时速度： $v = \frac{dx}{dt}$
-平均加速度： $\bar{a} = \frac{\Delta v}{\Delta t}$
-瞬时加速度： $a = \frac{dv}{dt} = \frac{d^2x}{dt^2}$
+在信息过载的时代，简约设计成为了一种反抗。去除冗余元素，回归内容本身，让文字拥有呼吸的空间。
 
-匀变速直线运动：
-$v = v_0 + at$
-$s = v_0 t + \frac{1}{2} a t^2$ (位移 $s = x - x_0$)
-$v^2 - v_0^2 = 2as$
-$s = \frac{(v_0 + v)t}{2}$
+## 设计原则
 
-自由落体运动 (初速 v₀=0, a=g≈9.8m/s²向下)：
-$v = gt$
-$h = \frac{1}{2}gt^2$ (高度)
-$v^2 = 2gh$
+- **内容至上**：所有设计服务于内容呈现
+- **克制表达**：删除所有非必要元素
+- **层次清晰**：通过灰度建立视觉层次
+- **极致专注**：消除任何可能的分心因素
 
-竖直上抛运动 (初速 v₀向上, a=-g)：
-$v = v_0 - gt$
-$h = v_0 t - \frac{1}{2}gt^2$
-$v^2 - v_0^2 = -2gh$
-上升时间 $t_{\text{上}} = \frac{v_0}{g}$
-最大高度 $H = \frac{v_0^2}{2g}$
-总时间 $T = \frac{2v_0}{g}$
+## 留白艺术
 
-平抛运动 (水平初速 v₀, 竖直自由落体)：
-水平位移 $x = v_0 t$
-竖直位移 $y = \frac{1}{2}gt^2$
-合位移 $s = \sqrt{x^2 + y^2}$
-水平速度 $v_x = v_0$
-竖直速度 $v_y = gt$
-合速度 $v = \sqrt{v_x^2 + v_y^2}$
-速度方向 $\tan\theta = \frac{v_y}{v_x} = \frac{gt}{v_0}$
+> "留白不是空白，而是设计的呼吸空间。它赋予元素存在的意义，引导视线流动，创造视觉节奏。"
 
-斜抛运动 (初速 v₀, 抛射角 θ)：
-水平分速度 $v_{x0} = v_0 \cos\theta$
-竖直分速度 $v_{y0} = v_0 \sin\theta$
-飞行时间 $T = \frac{2v_0 \sin\theta}{g}$
-最大高度 $H = \frac{(v_0 \sin\theta)^2}{2g}$
-射程 $R = \frac{v_0^2 \sin2\theta}{g}$ (水平位移最大值)
+在文字排版中，留白体现在：
 
-2. 牛顿运动定律 (Newton's Laws of Motion)
-牛顿第一定律 (惯性定律)： $\sum \vec{F} = 0 \Leftrightarrow \vec{v} = \text{常量}$ (或静止)
-牛顿第二定律 (核心)： $\sum \vec{F} = m \vec{a}$ (或 $\vec{a} = \frac{\sum \vec{F}}{m}$)
-牛顿第三定律 (作用力与反作用力)： $\vec{F}_{AB} = - \vec{F}_{BA}$
-胡克定律 (弹簧)： $F = -kx$ (k: 劲度系数, x: 形变量)
-滑动摩擦力： $f_k = \mu_k N$ (μₖ: 动摩擦因数, N: 正压力)
-静摩擦力： $0 \leq f_s \leq \mu_s N$ (μₛ: 静摩擦因数, N: 正压力) - 最大值 $f_{s \max} = \mu_s N$
-万有引力定律： $F = G \frac{m_1 m_2}{r^2}$ (G: 引力常量 ≈ 6.67×10⁻¹¹ N·m²/kg²)
-重力： $G = mg$ (地球表面附近近似, g≈9.8m/s²)
+- 段落之间的间距
+- 行与行之间的行高
+- 文字与边缘的距离
+- 标题与正文的间隔
 
-3. 功和能 (Work and Energy)
-恒力做功： $W = F s \cos\theta$ (θ: 力与位移夹角)
-功率 (平均)： $P = \frac{W}{t}$
-功率 (瞬时)： $P = \frac{dW}{dt} = F v \cos\theta$ (θ: 力与速度夹角)
-动能： $E_k = \frac{1}{2} m v^2$
-动能定理： $W_{\text{合}} = \Delta E_k = \frac{1}{2} m v_2^2 - \frac{1}{2} m v_1^2$
-重力势能： $E_p = mgh$ (h: 相对于零势能面的高度)
-弹性势能 (弹簧)： $E_p = \frac{1}{2} k x^2$ (x: 形变量)
-机械能： $E = E_k + E_p$
-机械能守恒定律 (仅保守力做功)： $\Delta E = 0$ 或 $E_{k1} + E_{p1} = E_{k2} + E_{p2}$
+## 单色系的力量
 
-4. 动量 (Momentum)
-动量： $\vec{p} = m \vec{v}$
-冲量： $\vec{I} = \vec{F} \Delta t$ (恒力) 或 $\vec{I} = \int \vec{F} dt$ (变力)
-动量定理： $\vec{I}_{\text{合}} = \Delta \vec{p} = m \vec{v}_2 - m \vec{v}_1$
-动量守恒定律 (系统合外力为零)： $\sum \vec{p}_{\text{初}} = \sum \vec{p}_{\text{末}}$
-弹性碰撞： 动量守恒 + 动能守恒
-完全非弹性碰撞： 动量守恒，碰撞后共速 $v'$，动能损失最大 $\Delta E_k = \frac{1}{2} \frac{m_1 m_2}{m_1 + m_2} (v_1 - v_2)^2$
+黑白灰看似简单，却能通过明度变化创造出丰富的层次：
 
-5. 圆周运动与天体运动 (Circular Motion & Celestial Mechanics)
-线速度： $v = \frac{2\pi r}{T} = \omega r = 2\pi r f$
-角速度： $\omega = \frac{2\pi}{T} = 2\pi f = \frac{v}{r}$
-周期与频率： $T = \frac{1}{f}$
-向心加速度： $a_n = \frac{v^2}{r} = \omega^2 r = \frac{4\pi^2 r}{T^2} = \omega v$
-向心力： $F_n = m a_n = m \frac{v^2}{r} = m \omega^2 r$
+\`\`\`css
+/* 灰度层次示例 */
+body {
+    background: #000;  /* 背景色 */
+}
 
-天体运动 (匀速圆周运动模型)：
-$G \frac{Mm}{r^2} = m \frac{v^2}{r} = m \omega^2 r = m \frac{4\pi^2}{T^2} r$ (M: 中心天体质量)
-开普勒第三定律： $\frac{R^3}{T^2} = k$ (k: 常量, 对同一中心天体)
-第一宇宙速度 (环绕速度)： $v_1 = \sqrt{\frac{GM}{R}} = \sqrt{gR}}$ (R: 地球半径)
-第二宇宙速度 (脱离地球)： $v_2 = \sqrt{2} v_1$
-第三宇宙速度 (脱离太阳系)： $v_3 ≈ 16.7 \text{km/s}$
-重力加速度 (地表附近)： $g = \frac{GM}{R^2}$
-重力加速度 (高度 h 处)： $g_h = \frac{GM}{(R+h)^2} \approx g_0 (\frac{R}{R+h})^2$ (g₀: 地表重力加速度)
+.container {
+    background: #0d1117; /* 内容容器 */
+}
 
-6. 振动与波 (Vibrations and Waves)
-简谐运动 (弹簧振子)：
-回复力： $F = -kx$
-运动方程： $x = A \cos(\omega t + \phi)$ 或 $x = A \sin(\omega t + \phi')$
-速度： $v = -A\omega \sin(\omega t + \phi)$
-加速度： $a = -A\omega^2 \cos(\omega t + \phi) = -\omega^2 x$
-周期： $T = 2\pi \sqrt{\frac{m}{k}}$ (弹簧振子)
-角频率： $\omega = \sqrt{\frac{k}{m}} = \frac{2\pi}{T}$
+.text-primary {
+    color: #fff;    /* 标题文本 */
+}
 
-单摆 (小角度 θ<5°近似)：
-回复力分量： $F \approx -mg\frac{x}{l}$ (类似 $F = -kx, k = mg/l$)
-周期： $T = 2\pi \sqrt{\frac{l}{g}}$
+.text-secondary {
+    color: #e0e0e0; /* 正文文本 */
+}
 
-机械波：
-波速： $v = \lambda f = \frac{\lambda}{T}$
-波长 λ、波速 v、频率 f (周期 T) 关系： $v = \lambda f$
-波函数 (沿x轴正向传播)： $y(x, t) = A \cos \left[ \omega \left( t - \frac{x}{v} \right) + \phi \right] = A \cos \left( 2\pi \left( \frac{t}{T} - \frac{x}{\lambda} \right) + \phi \right)$
+.text-tertiary {
+    color: #aaa;    /* 辅助信息 */
+}
+\`\`\`
 
-波的叠加：
-干涉条件： 频率相同、相位差恒定、振动方向相同。
-相位差： $\Delta \phi = \phi_2 - \phi_1 - \frac{2\pi}{\lambda} (r_2 - r_1)$
-干涉加强 (相长)： $\Delta \phi = \pm 2k\pi$ 或 $|r_1 - r_2| = \pm k\lambda$ (k=0,1,2,...)
-干涉减弱 (相消)： $\Delta \phi = \pm (2k+1)\pi$ 或 $|r_1 - r_2| = \pm (2k+1)\frac{\lambda}{2}$ (k=0,1,2,...)
-驻波： 波节间距 $d_{\text{节}} = \frac{\lambda}{2}$，波腹间距 $d_{\text{腹}} = \frac{\lambda}{2}$
+## 表格示例
 
-多普勒效应 (波源 S, 观察者 O, 介质静止)：
-波源接近观察者： $f' = \frac{v}{v - v_S} f$ (v: 波速)
-波源远离观察者： $f' = \frac{v}{v + v_S} f$
-观察者接近波源： $f' = \frac{v + v_O}{v} f$
-观察者远离波源： $f' = \frac{v - v_O}{v} f$
-两者相向运动： $f' = \frac{v + v_O}{v - v_S} f$
-两者背向运动： $f' = \frac{v - v_O}{v + v_S} f$
+| 设计元素 | 作用 | 示例 |
+|----------|------|------|
+| 负空间 | 创造视觉焦点 | 段落间距 |
+| 字体层次 | 建立信息结构 | 标题大小差异 |
+| 灰度对比 | 增强可读性 | 正文与背景的明度差 |
 
+## 结语
+
+在纷繁复杂的世界里，简约是最高级的复杂。当我们剥离所有装饰，剩下的才是真正重要的东西。
 `,
-            "code": `
-# 电磁学
+            "code": `# 代码的艺术
 
-## 1. 静电场
-库仑定律： $F = k \frac{|q_1 q_2|}{r^2}$ (k = $\frac{1}{4\pi\epsilon_0}$ ≈ 9×10⁹ N·m²/C², ε₀: 真空介电常数)
-电场强度 (定义)： $\vec{E} = \frac{\vec{F}}{q_0}$ (q₀: 试探电荷)
-点电荷场强： $E = k \frac{|Q|}{r^2}$
-场强叠加原理： $\vec{E} = \sum \vec{E}_i$
-匀强电场： $E = \frac{U}{d}$ (U: 电势差, d: 沿场强方向距离)
-电场力做功： $W_{AB} = q U_{AB} = q (U_A - U_B)$ (与路径无关)
-电势 (定义)： $U_A = \frac{W_{A\infty}}{q_0} = \frac{E_{pA}}{q_0}$ (通常选无穷远为零势点)
-点电荷电势： $U = k \frac{Q}{r}$
-电势叠加原理： $U = \sum U_i$
-电势差： $U_{AB} = U_A - U_B = \frac{W_{AB}}{q}$
-电势能： $E_p = qU$
-电场力做功与电势能： $W_{AB} = E_{pA} - E_{pB} = -\Delta E_p$
-等势面： 垂直于电场线。
-电容 (定义)： $C = \frac{Q}{U}$
-平行板电容器电容： $C = \frac{\epsilon S}{4\pi k d} = \frac{\epsilon_0 \epsilon_r S}{d}$ (ε_r: 相对介电常数, ε₀: 真空介电常数)
-电容器串联： $\frac{1}{C_{\text{总}}} = \frac{1}{C_1} + \frac{1}{C_2} + ...$
-电容器并联： $C_{\text{总}} = C_1 + C_2 + ...$
-电容器储能： $W = \frac{1}{2} C U^2 = \frac{Q^2}{2C} = \frac{1}{2} Q U$
+编程不仅是技术，更是一种创造性的表达方式。优秀的代码如同优美的散文，清晰、简洁、富有表现力。
 
-带电粒子在匀强电场中：
-加速： $qU = \frac{1}{2} m v^2 - \frac{1}{2} m v_0^2$
-偏转 (初速v₀⊥E)： 类似平抛 $a = \frac{qE}{m}$, $y = \frac{1}{2} a t^2 = \frac{1}{2} \frac{qE}{m} (\frac{L}{v_0})^2$
+## 代码美学原则
 
-## 2. 恒定电流
-电流强度： $I = \frac{q}{t}$ (宏观) / $I = n e S v_d$ (微观, n: 载流子密度, v_d: 漂移速度)
-电阻 (定义)： $R = \frac{U}{I}$
-电阻定律： $R = \rho \frac{l}{S}$ (ρ: 电阻率)
-欧姆定律： $I = \frac{U}{R}$ (纯电阻电路)
-电功： $W = U I t = I^2 R t = \frac{U^2}{R} t$ (焦耳 J)
-电功率： $P = \frac{W}{t} = U I = I^2 R = \frac{U^2}{R}$ (瓦特 W)
-焦耳定律： $Q = I^2 R t$ (纯电阻电路)
-闭合电路欧姆定律： $I = \frac{\mathcal{E}}{R + r}$ (ℰ: 电动势, r: 内阻)
-路端电压： $U = \mathcal{E} - I r$
-串联电路： $I = I_1 = I_2 = ...$, $U = U_1 + U_2 + ...$, $R = R_1 + R_2 + ...$
-并联电路： $U = U_1 = U_2 = ...$, $I = I_1 + I_2 + ...$, $\frac{1}{R} = \frac{1}{R_1} + \frac{1}{R_2} + ...$
-电源功率： $P_{\text{总}} = \mathcal{E} I$
-电源输出功率： $P_{\text{出}} = U I = \mathcal{E} I - I^2 r$
-输出功率最大条件： $R = r$, $P_{\text{出 max}} = \frac{\mathcal{E}^2}{4r}$
-电源效率： $\eta = \frac{P_{\text{出}}}{P_{\text{总}}}} = \frac{U}{\mathcal{E}} = \frac{R}{R + r}$
+1. **可读性至上**：
+   - 有意义的命名
+   - 一致的代码风格
+   - 适当的注释
 
-## 3. 磁场
-磁感应强度 (定义)： $B = \frac{F_{\text{max}}}{I l}$ (电流元 IΔl 垂直于 B 时受力最大)
-安培力 (电流元)： $d\vec{F} = I d\vec{l} \times \vec{B}$ (叉积)
-安培力 (直导线)： $F = B I l \sin\theta$ (θ: B与I夹角)
-洛伦兹力： $\vec{F} = q \vec{v} \times \vec{B}$ (叉积) $F = |q| v B \sin\theta$ (θ: v与B夹角)
+2. **简洁性**：
+   - DRY原则（Don't Repeat Yourself）
+   - 单一职责原则
+   - 避免过度设计
 
-带电粒子在匀强磁场中运动：
-匀速直线运动 (v ∥ B)： $F = 0$
-匀速圆周运动 (v ⊥ B)： $qvB = \frac{mv^2}{r}$, $r = \frac{mv}{qB}$, $T = \frac{2\pi m}{qB}$
-螺旋运动 (v与B夹角θ)： 半径 $r = \frac{m v_\perp}{qB} = \frac{m v \sin\theta}{qB}$, 螺距 $h = v_\parallel T = \frac{2\pi m v \cos\theta}{qB}$
+3. **表现力**：
+   - 使用语言特性表达意图
+   - 合理的抽象层次
+   - 优雅的错误处理
 
-质谱仪原理： $\frac{q}{m} = \frac{2U}{B^2 d^2}$ (U: 加速电压, d: 感光片上两点距离)
-回旋加速器原理： $f_{\text{电}} = f_{\text{回}}} = \frac{qB}{2\pi m}$, 最大动能 $E_k = \frac{(qBR)^2}{2m}$ (R: D盒半径)
-磁通量： $\Phi = B S \cos\theta$ (θ: B与面法线夹角, 单位：韦伯 Wb)
-毕奥-萨伐尔定律 (电流元产生磁场)： $dB = \frac{\mu_0}{4\pi} \frac{I dl \sin\alpha}{r^2}$ (α: dl与r夹角, μ₀: 真空磁导率)
-无限长直导线磁场： $B = \frac{\mu_0 I}{2\pi r}$
-载流长直螺线管内部磁场： $B = \mu_0 n I$ (n: 单位长度匝数)
-环形螺线管 (螺绕环) 内部磁场： $B = \frac{\mu_0 N I}{2\pi r}$ (N: 总匝数, r: 环半径)
-安培环路定理： $\oint \vec{B} \cdot d\vec{l} = \mu_0 \sum I_{\text{内}}$ (闭合路径内包围的电流代数和)
+## 代码示例
 
-## 4. 电磁感应
-法拉第电磁感应定律： $\mathcal{E} = -\frac{d\Phi}{dt}$ (N匝线圈 $\mathcal{E} = -N \frac{d\Phi}{dt}$)
-感应电动势：
-动生电动势： $\mathcal{E} = Blv \sin\theta$ (导体棒切割, θ: v与B夹角, v⊥l⊥B时最大)
-感生电动势： $\mathcal{E} = \frac{d\Phi}{dt} = S \frac{dB}{dt}$ (面积S不变, B变化)
-楞次定律： 感应电流的方向总是阻碍引起感应电流的磁通量变化。
-自感：
-自感电动势： $\mathcal{E}_L = -L \frac{dI}{dt}$
-自感系数 (电感)： $L = \frac{N\Phi}{I}$
-互感： $\mathcal{E}_2 = -M \frac{dI_1}{dt}$, $\mathcal{E}_1 = -M \frac{dI_2}{dt}$ (M: 互感系数)
-线圈储能： $W = \frac{1}{2} L I^2$
-RL电路暂态过程： (电流增长/衰减时间常数 τ = L/R)
+\`\`\`javascript
+// 函数式编程示例：数组处理
+const numbers = [1, 2, 3, 4, 5];
 
-## 5. 交变电流
-正弦交流电：
-电动势： $e = \mathcal{E}_m \sin(\omega t + \phi_e)$
-电压： $u = U_m \sin(\omega t + \phi_u)$
-电流： $i = I_m \sin(\omega t + \phi_i)$
-峰值 (ℰₘ, Uₘ, Iₘ)、有效值 (ℰ, U, I)： $U = \frac{U_m}{\sqrt{2}}$, $I = \frac{I_m}{\sqrt{2}}$
-周期 T、频率 f、角频率 ω： $\omega = 2\pi f = \frac{2\pi}{T}$
-相位、初相位、相位差： $\Delta\phi = \phi_u - \phi_i$
+// 链式调用
+const result = numbers
+  .filter(n => n % 2 === 0)
+  .map(n => n * 2)
+  .reduce((sum, n) => sum + n, 0);
 
-理想元件特性：
-纯电阻： $i = \frac{u}{R}$, $\phi_u = \phi_i$, $P = UI$
-纯电感： $u = L \frac{di}{dt}$, $i$ 滞后 $u$ 90°, $X_L = \omega L$, $I = \frac{U}{X_L}$, $P = 0$
-纯电容： $i = C \frac{du}{dt}$, $i$ 超前 $u$ 90°, $X_C = \frac{1}{\omega C}$, $I = \frac{U}{X_C}$, $P = 0$
+console.log(result); // 输出: 12
+\`\`\`
 
-RLC串联电路：
-阻抗： $Z = \sqrt{R^2 + (X_L - X_C)^2}$
-电流有效值： $I = \frac{U}{Z}$
-相位差： $\tan\phi = \frac{X_L - X_C}{R}$ (φ: u与i的相位差)
-有功功率 (平均功率)： $P = UI \cos\phi = I^2 R$
-无功功率： $Q = UI \sin\phi$
-视在功率： $S = UI$
-功率因数： $\cos\phi = \frac{P}{S} = \frac{R}{Z}$
+\`\`\`python
+# 上下文管理器示例：文件处理
+def process_file(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            content = file.read()
+            # 处理文件内容
+            return content.upper()
+    except FileNotFoundError:
+        print(f"文件 {file_path} 不存在")
+    except Exception as e:
+        print(f"处理文件时出错: {str(e)}")
+\`\`\`
 
-理想变压器： $\frac{U_1}{U_2} = \frac{N_1}{N_2} = n$, $\frac{I_1}{I_2} = \frac{N_2}{N_1} = \frac{1}{n}$, $P_1 = P_2$ (U₁I₁ = U₂I₂)
-电磁波波速： $c = \frac{1}{\sqrt{\mu_0 \epsilon_0}} ≈ 3×10^8 \text{m/s}$ (真空中)
+## 编程范式比较
+
+| 范式 | 特点 | 适用场景 |
+|------|------|----------|
+| 面向对象 | 封装、继承、多态 | 大型复杂系统 |
+| 函数式 | 无副作用、纯函数 | 数据处理、并发编程 |
+| 过程式 | 顺序执行、简单直接 | 小型脚本、性能关键代码 |
+
+## 优秀代码的特征
+
+- 如同阅读散文般自然
+- 自解释的命名和结构
+- 适度的注释（解释为什么，而不是做什么）
+- 一致的风格和模式
+- 优雅的错误处理
 `,
-            "minimalism": `
-# 热学
+            "minimalism": `# 极简主义的实践
 
-1. 分子动理论 (Kinetic Theory of Gases)
-物质的量： $n = \frac{N}{N_A} = \frac{m}{M}$ (N: 分子数, N_A: 阿伏伽德罗常数 ≈ 6.02×10²³ mol⁻¹, m: 质量, M: 摩尔质量)
-分子质量： $m_0 = \frac{M}{N_A}$
-理想气体状态方程： $pV = nRT = \frac{m}{M} RT$ (R: 普适气体常量 ≈ 8.31 J/(mol·K))
-常用形式： $\frac{p_1 V_1}{T_1} = \frac{p_2 V_2}{T_2}$ (质量恒定)
-分子平均平动动能： $\bar{\epsilon_k} = \frac{3}{2} kT$ (k: 玻尔兹曼常数 ≈ 1.38×10⁻²³ J/K)
-温度微观意义： $T \propto \bar{\epsilon_k}$
-压强微观公式： $p = \frac{2}{3} n \bar{\epsilon_k} = \frac{1}{3} \rho \bar{v^2}$ (ρ: 气体密度, $\bar{v^2}$: 分子速率平方的平均值)
-方均根速率： $v_{\text{rms}} = \sqrt{\bar{v^2}} = \sqrt{\frac{3kT}{m_0}} = \sqrt{\frac{3RT}{M}}$
+极简主义不仅是设计风格，更是一种生活哲学。它倡导"少即是多"，专注于真正重要的事物。
 
-2. 热力学定律 (Laws of Thermodynamics)
-热力学第一定律 (能量守恒)： $\Delta U = Q + W$
-ΔU: 系统内能增量
-Q: 系统吸收的热量 (Q>0 吸热, Q<0 放热)
-W: 外界对系统做的功 (W>0 外界对系统做功, W<0 系统对外界做功)
-理想气体内能： $U = \frac{i}{2} nRT$ (仅与温度T有关)
-i: 自由度 (单原子 i=3, 双原子刚性 i=5, 多原子刚性 i=6)
-等容过程 (V不变)： $W = 0$, $Q_V = \Delta U = \frac{i}{2} nR \Delta T$
-等压过程 (p不变)： $W = -p \Delta V$, $Q_p = \Delta U - W = \frac{i}{2} nR \Delta T + p \Delta V = \frac{i+2}{2} nR \Delta T$
-等温过程 (T不变)： $\Delta U = 0$, $Q_T = -W = nRT \ln\frac{V_2}{V_1} = nRT \ln\frac{p_1}{p_2}$
-绝热过程 (Q=0)： $\Delta U = W$
-过程方程： $pV^\gamma = \text{常量}$, $TV^{\gamma-1} = \text{常量}$, $p^{1-\gamma} T^\gamma = \text{常量}$
-其中 $\gamma = \frac{C_{p,m}}{C_{V,m}} = \frac{i+2}{i}$ (比热容比)
-热力学第二定律 (克劳修斯表述)： 热量不能自发地从低温物体传到高温物体。
+## 设计中的极简主义
 
-# 光学
+### 核心原则：
+1. 删除不必要的元素
+2. 强调核心内容
+3. 创造空间感
+4. 使用有限色彩
 
-1. 几何光学 (Geometrical Optics)
-折射定律 (斯涅尔定律)： $n_1 \sin i = n_2 \sin r$ (i: 入射角, r: 折射角)
-折射率： $n = \frac{c}{v} = \frac{\sin i}{\sin r}$ (空气→介质), $n_{21} = \frac{n_2}{n_1} = \frac{\sin i}{\sin r}$
-全反射临界角： $\sin C = \frac{n_2}{n_1}$ (n₁ > n₂, 光从 n₁ 射向 n₂)
-透镜成像公式： $\frac{1}{u} + \frac{1}{v} = \frac{1}{f}$ (u: 物距, v: 像距, f: 焦距)
-放大率： $m = \frac{|v|}{u} = \frac{h'}{h}$ (h': 像高, h: 物高)
-薄透镜焦距： $\frac{1}{f} = (n - 1) \left( \frac{1}{R_1} - \frac{1}{R_2} \right)$ (n: 透镜材料折射率, R₁, R₂: 两表面曲率半径, 符号约定)
-球面镜成像公式： $\frac{1}{u} + \frac{1}{v} = \frac{1}{f} = \frac{2}{R}$ (凹面镜 f>0, 凸面镜 f<0)
+### 网页设计应用：
+- 充足的留白
+- 有限的色彩方案
+- 清晰的视觉层次
+- 响应式布局
 
-2. 物理光学 (Physical Optics)
-光程： $L = n r$ (n: 介质折射率, r: 几何路程)
-光程差 δ 与相位差 Δφ： $\Delta\phi = \frac{2\pi}{\lambda} \delta$ (λ: 真空波长)
+## 极简主义的好处
 
-双缝干涉：
-明纹： $\delta = \pm k\lambda$ (k=0,1,2,...) $\Rightarrow d \sin\theta \approx d \frac{x}{D} = \pm k\lambda$
-暗纹： $\delta = \pm (2k+1)\frac{\lambda}{2}$ (k=0,1,2,...) $\Rightarrow d \frac{x}{D} = \pm (2k+1)\frac{\lambda}{2}$
-条纹间距： $\Delta x = \frac{D\lambda}{d}$
+> "极简主义不是要剥夺，而是要赋予力量。通过移除多余，我们为重要事物创造了空间。"
 
-薄膜干涉 (等厚干涉-劈尖/牛顿环)：
-光程差： $\delta = 2n d$ (空气劈尖 n≈1) 或 $\delta = 2d$ (考虑半波损失需附加 λ/2)
-明纹： $2d = (2k+1)\frac{\lambda}{2}$ 或 $2d = k\lambda$ (取决于半波损失)
-暗纹： $2d = k\lambda$ 或 $2d = (2k+1)\frac{\lambda}{2}$
+- **提升专注力**：减少视觉干扰
+- **提高可读性**：内容更加突出
+- **加快加载速度**：减少资源需求
+- **增强适应性**：在各种设备上表现良好
 
-单缝衍射 (夫琅禾费衍射)：
-暗纹条件： $a \sin\theta = \pm k\lambda$ (k=1,2,3,...) (a: 缝宽)
-中央明纹宽度： $\Delta x_0 = \frac{2\lambda f}{a}$ (f: 透镜焦距)
+## 代码中的极简主义
 
-圆孔衍射 (艾里斑)： 最小分辨角 $\theta_{\text{min}} = 1.22 \frac{\lambda}{D}$ (D: 孔径)
+\`\`\`html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>极简网页</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      font-family: sans-serif;
+      background: #f8f8f8;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-weight: 300;
+      margin-bottom: 2rem;
+    }
+    p {
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>极简网页设计</h1>
+  <p>这个网页展示了极简主义的设计原则：</p>
+  <ul>
+    <li>没有不必要的元素</li>
+    <li>充足的留白空间</li>
+    <li>清晰的排版层次</li>
+    <li>有限的色彩方案</li>
+  </ul>
+</body>
+</html>
+\`\`\`
 
-衍射光栅：
-光栅方程 (主极大)： $d \sin\theta = \pm k\lambda$ (k=0,1,2,...) (d: 光栅常数)
-缺级： $k = \frac{d}{a} k'$ (k'=±1,±2,...) (a: 单缝宽度)
+## 极简主义实践步骤
 
-光的偏振：
-马吕斯定律： $I = I_0 \cos^2\alpha$ (α: 偏振片透振方向夹角)
-布儒斯特定律： $\tan i_B = n_{21} = \frac{n_2}{n_1}$ (i_B: 布儒斯特角, 反射光全偏振)
-
-# 近代物理基础
-
-1. 相对论 (Special Relativity) - (基础部分)
-狭义相对论基本原理： 相对性原理 + 光速不变原理
-时间膨胀： $\Delta t = \frac{\Delta t_0}{\sqrt{1 - v^2/c^2}} = \gamma \Delta t_0$ (Δt₀: 固有时)
-长度收缩： $L = L_0 \sqrt{1 - v^2/c^2} = \frac{L_0}{\gamma}$ (L₀: 固有长度)
-静能： $E_0 = m_0 c^2$
-总能： $E = \gamma m_0 c^2 = mc^2$
-动能： $E_k = E - E_0 = (\gamma - 1) m_0 c^2$
-质能关系： $\Delta E = \Delta m c^2$
-动量能量关系： $E^2 = (p c)^2 + (m_0 c^2)^2$
-
+1. 识别核心内容
+2. 移除所有非必要元素
+3. 优化剩余元素的呈现
+4. 测试并迭代
 `,
-            "math": `
-# 重要常数：
-万有引力常量 G ≈ 6.67×10⁻¹¹ N·m²/kg²
-静电力常量 k ≈ 9.0×10⁹ N·m²/C²
-元电荷 e ≈ 1.60×10⁻¹⁹ C
-电子静质量 m_e ≈ 9.11×10⁻³¹ kg
-质子静质量 m_p ≈ 1.67×10⁻²⁷ kg
-中子静质量 m_n ≈ 1.67×10⁻²⁷ kg
-真空光速 c ≈ 3.00×10⁸ m/s
-普朗克常数 h ≈ 6.63×10⁻³⁴ J·s
-阿伏伽德罗常数 N_A ≈ 6.02×10²³ mol⁻¹
-普适气体常量 R ≈ 8.31 J/(mol·K)
-真空介电常数 ε₀ ≈ 8.85×10⁻¹² C²/(N·m²) (由 k=1/(4πε₀) 计算)
-`,
-            "web": `
+            "math": `# 数学公式支持
 
+本阅读器支持使用LaTeX语法编写数学公式，通过KaTeX进行渲染。
+
+## 基础数学公式
+
+行内公式示例：\\( E = mc^2 \\)
+
+行内公式示例：\\( a^2 + b^2 = c^2 \\)
+
+行内公式示例：\\( \\frac{1}{\\sqrt{2\\pi}} e^{-\\frac{x^2}{2}} \\)
+
+## 矩阵和方程组
+
+矩阵示例：
+\\[
+\\begin{pmatrix}
+a & b \\\\
+c & d
+\\end{pmatrix}
+\\]
+
+方程组示例：
+\\[
+\\begin{cases}
+2x + 3y = 7 \\\\
+4x - y = 5
+\\end{cases}
+\\]
+
+## 微积分公式
+
+导数：
+\\[ f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h} \\]
+
+积分：
+\\[ \\int_{a}^{b} x^2  dx = \\left[ \\frac{x^3}{3} \\right]_{a}^{b} \\]
+
+泰勒级数：
+\\[ f(x) = \\sum_{n=0}^{\\infty} \\frac{f^{(n)}(a)}{n!} (x-a)^n \\]
+
+## 概率与统计
+
+贝叶斯定理：
+\\[ P(A|B) = \\frac{P(B|A) P(A)}{P(B)} \\]
+
+正态分布：
+\\[ \\mathcal{N}(\\mu, \\sigma^2) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}} \\]
+
+## 物理学公式
+
+薛定谔方程：
+\\[ i\\hbar \\frac{\\partial}{\\partial t} \\Psi(\\mathbf{r},t) = \\hat{H} \\Psi(\\mathbf{r},t) \\]
+
+麦克斯韦方程组：
+\\[
+\\begin{aligned}
+\\nabla \\cdot \\mathbf{E} &= \\frac{\\rho}{\\varepsilon_0} \\\\
+\\nabla \\cdot \\mathbf{B} &= 0 \\\\
+\\nabla \\times \\mathbf{E} &= -\\frac{\\partial \\mathbf{B}}{\\partial t} \\\\
+\\nabla \\times \\mathbf{B} &= \\mu_0 \\left( \\mathbf{J} + \\varepsilon_0 \\frac{\\partial \\mathbf{E}}{\\partial t} \\right)
+\\end{aligned}
+\\]
+
+## 公式与代码结合
+
+使用数学公式定义算法：
+
+\\[ \\text{softmax}(x_i) = \\frac{e^{x_i}}{\\sum_{j=1}^{n} e^{x_j}} \\]
+
+对应Python实现：
+\`\`\`python
+import numpy as np
+
+def softmax(x):
+    e_x = np.exp(x - np.max(x))
+    return e_x / e_x.sum()
+\`\`\`
+`,
+            "web": `# 现代网页设计原则
+
+随着互联网发展，网页设计已从单纯的美观追求转变为注重用户体验、性能和可访问性的综合学科。
+
+## 核心设计原则
+
+### 1. 用户中心设计
+- 理解目标用户
+- 创建用户画像
+- 用户旅程地图
+
+### 2. 响应式设计
+- 移动优先策略
+- 弹性网格布局
+- 媒体查询应用
+
+### 3. 性能优化
+- 资源最小化
+- 懒加载技术
+- 缓存策略
+
+### 4. 可访问性
+- 语义化HTML
+- 足够的对比度
+- 键盘导航支持
+
+## 设计工作流程
+
+\`\`\`mermaid
+graph TD
+    A[需求分析] --> B[线框图]
+    B --> C[视觉设计]
+    C --> D[前端实现]
+    D --> E[测试优化]
+    E --> F[发布]
+    F --> G[持续迭代]
+\`\`\`
+
+## 现代CSS技术
+
+\`\`\`css
+/* CSS Grid布局示例 */
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* 自定义属性 */
+:root {
+  --primary-color: #1a73e8;
+  --secondary-color: #f8f9fa;
+}
+
+.card {
+  background: var(--secondary-color);
+  border-radius: 8px;
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* 暗色模式支持 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --secondary-color: #202124;
+  }
+}
+\`\`\`
+
+## 前端框架比较
+
+| 框架 | 特点 | 适用场景 |
+|------|------|----------|
+| React | 组件化、虚拟DOM | 大型应用、复杂UI |
+| Vue | 渐进式、易上手 | 快速开发、中小型项目 |
+| Svelte | 编译时框架 | 高性能应用、轻量级项目 |
+| Angular | 全功能框架 | 企业级应用、TypeScript项目 |
 `
         };
 
