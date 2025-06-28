@@ -3,680 +3,687 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>极简Markdown阅读器</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <title>深色Markdown小说阅读器</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --bg-tertiary: #2d2d2d;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --accent-color: #bb86fc;
+            --border-color: #333;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --hover-color: #333;
+            --font-size: 1.1rem;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
         }
-        
+
         body {
-            background-color: #000;
-            color: #e0e0e0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-            line-height: 1.7;
-            min-height: 100vh;
-            padding: 20px;
-            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
         }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            gap: 20px;
+
+        /* 顶部导航栏 */
+        header {
+            background-color: var(--bg-secondary);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px var(--shadow-color);
+            z-index: 10;
         }
-        
-        .sidebar {
-            background-color: #0a0a0a;
-            border-radius: 6px;
-            padding: 15px;
-            height: fit-content;
-        }
-        
+
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+        }
+
+        .logo h1 {
             font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #f0f0f0;
-            text-align: center;
-            letter-spacing: 1px;
-            border-bottom: 1px solid #30363d;
-            padding-bottom: 12px;
+            font-weight: 500;
         }
-        
-        .article-list {
-            list-style: none;
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
         }
-        
-        .article-list li {
-            margin-bottom: 10px;
-            padding: 6px 10px;
+
+        .control-btn {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
             border-radius: 4px;
+            padding: 8px 15px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             transition: all 0.2s;
         }
-        
-        .article-list li:hover {
-            background-color: #161b22;
+
+        .control-btn:hover {
+            background: var(--hover-color);
+            border-color: var(--accent-color);
         }
-        
-        .article-list li.active {
-            background-color: #002080;
-            color: white;
+
+        /* 主要内容区域 */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
         }
-        
-        .back-home {
-            display: block;
-            width: 100%;
-            background: #002080;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            border-radius: 6px;
-            text-decoration: none;
-            margin-top: 15px;
+
+        /* 左侧导航栏 */
+        .sidebar {
+            width: 280px;
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.2rem;
             font-weight: 500;
-            transition: background 0.3s;
         }
-        
-        .back-home:hover {
-            background: #0030a0;
+
+        .toggle-sidebar {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.2rem;
         }
-        
-        .article-container {
-            background-color: #0d1117;
-            border-radius: 6px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            position: relative;
+
+        .chapters {
+            overflow-y: auto;
+            flex: 1;
+            padding: 10px 0;
         }
-        
-        .markdown-content {
-            font-size: 16px;
-            text-align: left;
+
+        .chapter {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
         }
-        
-        .markdown-content h1 {
-            font-size: 2rem;
-            font-weight: 600;
-            margin: 0 0 20px 0;
-            color: #f0f0f0;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #30363d;
+
+        .chapter:hover {
+            background: var(--hover-color);
         }
-        
-        .markdown-content h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin: 25px 0 15px;
-            color: #f0f0f0;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #30363d;
+
+        .chapter.active {
+            background: var(--bg-tertiary);
+            border-left: 3px solid var(--accent-color);
+            color: var(--accent-color);
         }
-        
-        .markdown-content h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin: 20px 0 12px;
-            color: #f0f0f0;
+
+        .chapter-title {
+            font-weight: 500;
+            margin-bottom: 4px;
         }
-        
-        .markdown-content p {
-            margin-bottom: 14px;
+
+        .chapter-info {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
         }
-        
-        .markdown-content ul, 
-        .markdown-content ol {
-            padding-left: 30px;
-            margin-bottom: 18px;
+
+        /* 阅读区域 */
+        .reader-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
-        
-        .markdown-content li {
-            margin-bottom: 6px;
+
+        .reader-controls {
+            padding: 15px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
-        
-        .markdown-content blockquote {
-            border-left: 4px solid #30363d;
-            padding: 0 12px;
-            margin: 18px 0;
-            color: #8b949e;
+
+        .font-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        
-        .markdown-content pre {
-            background-color: #161b22;
-            padding: 14px;
-            border-radius: 6px;
-            overflow-x: auto;
-            margin: 18px 0;
-            font-size: 14px;
-            border: 1px solid #30363d;
-        }
-        
-        .markdown-content code {
-            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-            background-color: rgba(110, 118, 129, 0.4);
-            padding: 2px 4px;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        
-        .markdown-content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 18px 0;
-            border: 1px solid #30363d;
-        }
-        
-        .markdown-content th {
-            background-color: #161b22;
-            padding: 8px;
-            text-align: left;
-            border: 1px solid #30363d;
-            font-weight: 600;
-        }
-        
-        .markdown-content td {
-            padding: 8px;
-            border: 1px solid #30363d;
-        }
-        
-        .markdown-content a {
-            color: #58a6ff;
-            text-decoration: none;
-        }
-        
-        .markdown-content a:hover {
-            text-decoration: underline;
-        }
-        
-        .markdown-content img {
-            max-width: 100%;
-            border-radius: 4px;
-            margin: 12px 0;
-            border: 1px solid #30363d;
-        }
-        
-        /* 返回顶部按钮 */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #002080;
-            color: white;
-            width: 50px;
-            height: 50px;
+
+        .font-controls button {
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-            z-index: 100;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
-        
-        .back-to-top.show {
-            opacity: 1;
+
+        .font-controls button:hover {
+            background: var(--hover-color);
         }
-        
-        .back-to-top:hover {
-            transform: translateY(-5px);
-            background: #0030a0;
+
+        .progress-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            max-width: 300px;
+            min-width: 200px;
         }
-        
-        @media (max-width: 800px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-            
+
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--accent-color);
+            width: 45%;
+            border-radius: 3px;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            min-width: 60px;
+        }
+
+        /* 阅读内容 */
+        .reader-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .markdown-content {
+            font-size: var(--font-size);
+            line-height: 1.8;
+        }
+
+        .markdown-content h1 {
+            font-size: 2.2rem;
+            margin: 1.5rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .markdown-content h2 {
+            font-size: 1.8rem;
+            margin: 1.3rem 0 0.8rem;
+        }
+
+        .markdown-content h3 {
+            font-size: 1.5rem;
+            margin: 1.1rem 0 0.7rem;
+        }
+
+        .markdown-content p {
+            margin: 1rem 0;
+            text-align: justify;
+        }
+
+        .markdown-content blockquote {
+            border-left: 4px solid var(--accent-color);
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            background: var(--bg-tertiary);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .markdown-content pre {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1.2rem 0;
+        }
+
+        .markdown-content code {
+            font-family: 'Courier New', monospace;
+            background: var(--bg-tertiary);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+
+        .markdown-content em {
+            font-style: italic;
+        }
+
+        .markdown-content strong {
+            font-weight: bold;
+        }
+
+        /* 底部信息 */
+        footer {
+            padding: 15px 20px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 900px) {
             .sidebar {
-                margin-bottom: 15px;
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                z-index: 20;
+                transform: translateX(-100%);
             }
-            
+
+            .sidebar.open {
+                transform: translateX(0);
+                box-shadow: 3px 0 15px var(--shadow-color);
+            }
+
+            .reader-controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .progress-container {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .reader-content {
+                padding: 20px 15px;
+            }
+
             .markdown-content h1 {
                 font-size: 1.8rem;
             }
-            
+
             .markdown-content h2 {
-                font-size: 1.4rem;
+                font-size: 1.5rem;
             }
-            
+
             .markdown-content h3 {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
             }
-            
-            .markdown-content ul, 
-            .markdown-content ol {
-                padding-left: 20px;
-            }
-            
-            .back-to-top {
-                bottom: 20px;
-                right: 20px;
-                width: 45px;
-                height: 45px;
-            }
+        }
+
+        /* 工具提示 */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 120px;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* 深色滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <div class="logo">MD READER</div>
-            
-            <ul class="article-list">
-                <li class="active" data-article="design">设计哲学</li>
-                <li data-article="code">代码艺术</li>
-                <li data-article="minimalism">极简主义</li>
-                <li data-article="web">网页设计</li>
-            </ul>
-            
-            <a href="#" class="back-home">返回主页</a>
+    <!-- 顶部导航栏 -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-book-open"></i>
+            <h1>Markdown小说阅读器</h1>
         </div>
-        
-        <div class="article-container">
-            <div id="markdownContent" class="markdown-content"></div>
+        <div class="controls">
+            <button class="control-btn tooltip">
+                <i class="fas fa-bookmark"></i> 书签
+                <span class="tooltip-text">添加书签</span>
+            </button>
+            <button class="control-btn tooltip">
+                <i class="fas fa-moon"></i> 夜间模式
+                <span class="tooltip-text">切换日/夜模式</span>
+            </button>
+            <button class="control-btn tooltip">
+                <i class="fas fa-download"></i> 下载
+                <span class="tooltip-text">下载当前章节</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <div class="main-container">
+        <!-- 左侧导航栏 -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>章节列表</h2>
+                <button class="toggle-sidebar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chapters">
+                <div class="chapter active">
+                    <div class="chapter-title">第1章 穿越异世界</div>
+                    <div class="chapter-info">字数: 3.2k · 阅读时间: 15分钟</div>
+                </div>
+                <div class="chapter">
+                    <div class="chapter-title">第2章 神秘的系统</div>
+                    <div class="chapter-info">字数: 2.8k · 阅读时间: 12分钟</div>
+                </div>
+                <div class="chapter">
+                    <div class="chapter-title">第3章 初遇魔法</div>
+                    <div class="chapter-info">字数: 3.5k · 阅读时间: 16分钟</div>
+                </div>
+                <div class="chapter">
+                    <div class="chapter-title">第4章 学院测试</div>
+                    <div class="chapter-info">字数: 4.1k · 阅读时间: 18分钟</div>
+                </div>
+                <div class="chapter">
+                    <div class="chapter-title">第5章 隐藏的天赋</div>
+                    <div class="chapter-info">字数: 3.7k · 阅读时间: 17分钟</div>
+                </div>
+                <div class="chapter">
+                    <div class="chapter-title">第6章 导师的选择</div>
+                    <div class="chapter-info">字数: 3.9k · 阅读时间: 18分钟</div>
+                </div>
+                <div class="chapter">
+                    <div class="chapter-title">第7章 图书馆的秘密</div>
+                    <div class="chapter-info">字数: 4.3k · 阅读时间: 20分钟</div>
+                </div>
+                <div class="chapter">
+                    <div class="chapter-title">第8章 禁术卷轴</div>
+                    <div class="chapter-info">字数: 3.6k · 阅读时间: 16分钟</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 阅读区域 -->
+        <div class="reader-container">
+            <div class="reader-controls">
+                <button id="toggleNav" class="control-btn">
+                    <i class="fas fa-bars"></i> 目录
+                </button>
+                <div class="font-controls">
+                    <button id="decreaseFont" class="tooltip">
+                        <i class="fas fa-font"></i>
+                        <span class="tooltip-text">减小字体</span>
+                    </button>
+                    <button id="resetFont" class="tooltip">
+                        <i class="fas fa-text-height"></i>
+                        <span class="tooltip-text">重置字体</span>
+                    </button>
+                    <button id="increaseFont" class="tooltip">
+                        <i class="fas fa-text-width"></i>
+                        <span class="tooltip-text">增大字体</span>
+                    </button>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                    <div class="progress-text">45% 已读</div>
+                </div>
+                <div>
+                    <button class="control-btn">
+                        <i class="fas fa-chevron-left"></i> 上一章
+                    </button>
+                    <button class="control-btn">
+                        下一章 <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="reader-content">
+                <div id="markdown-content" class="markdown-content"></div>
+            </div>
         </div>
     </div>
-    
-    <div class="back-to-top" id="backToTop">↑</div>
+
+    <!-- 底部信息 -->
+    <footer>
+        <div>《异界征途》 · 作者：星辰幻影</div>
+        <div>阅读时长：1小时25分钟</div>
+    </footer>
 
     <script>
-        // 初始化highlight.js
-        hljs.highlightAll();
-        
-        // Markdown内容
-        const markdownContent = {
-            "design": `# 简约设计哲学
+        // 示例Markdown内容
+        const markdownContent = `
+# 第1章 穿越异世界
 
-在信息过载的时代，简约设计成为了一种反抗。去除冗余元素，回归内容本身，让文字拥有呼吸的空间。
+林风缓缓睁开双眼，映入眼帘的是一片陌生的景象。高耸入云的奇异植物散发着幽蓝光芒，天空中悬挂着两轮明月，一银一紫，交相辉映。
 
-## 设计原则
+"这是...什么地方？"他挣扎着坐起身，头痛欲裂。最后的记忆停留在实验室的爆炸中——他正在测试自己研发的量子传送装置。
 
-- **内容至上**：所有设计服务于内容呈现
-- **克制表达**：删除所有非必要元素
-- **层次清晰**：通过灰度建立视觉层次
-- **极致专注**：消除任何可能的分心因素
+## 神秘的系统提示
 
-## 留白艺术
+就在林风试图理清思绪时，一个冰冷的电子音在脑海中响起：
 
-> "留白不是空白，而是设计的呼吸空间。它赋予元素存在的意义，引导视线流动，创造视觉节奏。"
-
-在文字排版中，留白体现在：
-
-- 段落之间的间距
-- 行与行之间的行高
-- 文字与边缘的距离
-- 标题与正文的间隔
-
-## 单色系的力量
-
-黑白灰看似简单，却能通过明度变化创造出丰富的层次：
-
-\`\`\`css
-/* 灰度层次示例 */
-body {
-    background: #000;  /* 背景色 */
-}
-
-.container {
-    background: #0d1117; /* 内容容器 */
-}
-
-.text-primary {
-    color: #fff;    /* 标题文本 */
-}
-
-.text-secondary {
-    color: #e0e0e0; /* 正文文本 */
-}
-
-.text-tertiary {
-    color: #aaa;    /* 辅助信息 */
-}
+\`\`\`
+【系统激活中...】
+【检测到宿主生命体征...】
+【灵魂绑定完成！】
+【欢迎使用多维进化系统1.0】
 \`\`\`
 
-## 表格示例
+眼前突然浮现出一个半透明的蓝色界面：
 
-| 设计元素 | 作用 | 示例 |
-|----------|------|------|
-| 负空间 | 创造视觉焦点 | 段落间距 |
-| 字体层次 | 建立信息结构 | 标题大小差异 |
-| 灰度对比 | 增强可读性 | 正文与背景的明度差 |
+| 属性 | 数值 |
+|------|------|
+| **姓名** | 林风 |
+| **种族** | 人类 (碳基生命体) |
+| **等级** | LV1 |
+| **生命力** | 120/150 |
+| **精神力** | 85/100 |
+| **力量** | 8 |
+| **敏捷** | 9 |
+| **智力** | 15 |
+| **天赋** | 未觉醒 |
 
-## 结语
+> **系统提示：** 你已穿越到艾泽拉大陆，当前处于幽暗森林边缘区域。建议尽快寻找安全区域！
 
-在纷繁复杂的世界里，简约是最高级的复杂。当我们剥离所有装饰，剩下的才是真正重要的东西。
-`,
-            "code": `# 代码的艺术
+## 初次遭遇
 
-编程不仅是技术，更是一种创造性的表达方式。优秀的代码如同优美的散文，清晰、简洁、富有表现力。
+林风强忍着身体的疼痛站起身，环顾四周。突然，不远处的灌木丛中传来窸窣声响。他本能地蹲下身，屏住呼吸。
 
-## 代码美学原则
+一只通体银白、形似狐狸却长着三只尾巴的生物钻了出来。它头顶悬浮着一行半透明的文字：
 
-1. **可读性至上**：
-   - 有意义的命名
-   - 一致的代码风格
-   - 适当的注释
+\`\`\`
+【月影狐】
+等级：LV3
+特性：夜行生物，擅长幻术
+危险程度：中等
+\`\`\`
 
-2. **简洁性**：
-   - DRY原则（Don't Repeat Yourself）
-   - 单一职责原则
-   - 避免过度设计
+生物似乎察觉到了林风的存在，突然转向他的方向，三只尾巴竖立起来，眼中泛起诡异的蓝光。
 
-3. **表现力**：
-   - 使用语言特性表达意图
-   - 合理的抽象层次
-   - 优雅的错误处理
+"糟了！"林风暗叫不好。就在此时，系统提示再次响起：
 
-## 代码示例
+\`\`\`
+【检测到危机！】
+【新手礼包已解锁】
+【是否立即开启？[是]/[否]】
+\`\`\`
+
+"是！"林风毫不犹豫地在心中默念。
+
+\`\`\`
+【获得物品：】
+- 基础治疗药剂 ×3
+- 精钢短剑 ×1
+- 初级魔法卷轴【火焰冲击】×2
+- 银币 ×50
+\`\`\`
+
+一把闪着寒光的短剑凭空出现在林风手中，同时几张刻着神秘符文的卷轴落在他脚边。
+
+月影狐发出一声尖锐的嘶鸣，化作三道残影向他扑来...
+
+---
+
+## 战斗后的思考
+
+林风靠在古树上喘息，看着地上逐渐消散的月影狐尸体。刚才的战斗虽然短暂却惊心动魄，他凭借火焰卷轴和突然爆发的速度才勉强取胜。
 
 \`\`\`javascript
-// 函数式编程示例：数组处理
-const numbers = [1, 2, 3, 4, 5];
-
-// 链式调用
-const result = numbers
-  .filter(n => n % 2 === 0)
-  .map(n => n * 2)
-  .reduce((sum, n) => sum + n, 0);
-
-console.log(result); // 输出: 12
-\`\`\`
-
-\`\`\`python
-# 上下文管理器示例：文件处理
-def process_file(file_path):
-    try:
-        with open(file_path, 'r') as file:
-            content = file.read()
-            # 处理文件内容
-            return content.upper()
-    except FileNotFoundError:
-        print(f"文件 {file_path} 不存在")
-    except Exception as e:
-        print(f"处理文件时出错: {str(e)}")
-\`\`\`
-
-## 编程范式比较
-
-| 范式 | 特点 | 适用场景 |
-|------|------|----------|
-| 面向对象 | 封装、继承、多态 | 大型复杂系统 |
-| 函数式 | 无副作用、纯函数 | 数据处理、并发编程 |
-| 过程式 | 顺序执行、简单直接 | 小型脚本、性能关键代码 |
-
-## 优秀代码的特征
-
-- 如同阅读散文般自然
-- 自解释的命名和结构
-- 适度的注释（解释为什么，而不是做什么）
-- 一致的风格和模式
-- 优雅的错误处理
-`,
-            "minimalism": `# 极简主义的实践
-
-极简主义不仅是设计风格，更是一种生活哲学。它倡导"少即是多"，专注于真正重要的事物。
-
-## 设计中的极简主义
-
-### 核心原则：
-1. 删除不必要的元素
-2. 强调核心内容
-3. 创造空间感
-4. 使用有限色彩
-
-### 网页设计应用：
-- 充足的留白
-- 有限的色彩方案
-- 清晰的视觉层次
-- 响应式布局
-
-## 极简主义的好处
-
-> "极简主义不是要剥夺，而是要赋予力量。通过移除多余，我们为重要事物创造了空间。"
-
-- **提升专注力**：减少视觉干扰
-- **提高可读性**：内容更加突出
-- **加快加载速度**：减少资源需求
-- **增强适应性**：在各种设备上表现良好
-
-## 代码中的极简主义
-
-\`\`\`html
-<!DOCTYPE html>
-<html>
-<head>
-  <title>极简网页</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 2rem;
-      font-family: sans-serif;
-      background: #f8f8f8;
-      color: #333;
-      max-width: 800px;
-      margin: 0 auto;
+// 简单的战斗计算示例
+function calculateDamage(attacker, defender) {
+    let baseDamage = attacker.strength * 2 - defender.defense;
+    // 暴击判定
+    if (Math.random() < attacker.criticalChance) {
+        baseDamage *= 2;
+        console.log("Critical hit!");
     }
-    h1 {
-      font-weight: 300;
-      margin-bottom: 2rem;
-    }
-    p {
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-    }
-  </style>
-</head>
-<body>
-  <h1>极简网页设计</h1>
-  <p>这个网页展示了极简主义的设计原则：</p>
-  <ul>
-    <li>没有不必要的元素</li>
-    <li>充足的留白空间</li>
-    <li>清晰的排版层次</li>
-    <li>有限的色彩方案</li>
-  </ul>
-</body>
-</html>
-\`\`\`
-
-## 极简主义实践步骤
-
-1. 识别核心内容
-2. 移除所有非必要元素
-3. 优化剩余元素的呈现
-4. 测试并迭代
-`,
-            "web": `# 现代网页设计原则
-
-随着互联网发展，网页设计已从单纯的美观追求转变为注重用户体验、性能和可访问性的综合学科。
-
-## 核心设计原则
-
-### 1. 用户中心设计
-- 理解目标用户
-- 创建用户画像
-- 用户旅程地图
-
-### 2. 响应式设计
-- 移动优先策略
-- 弹性网格布局
-- 媒体查询应用
-
-### 3. 性能优化
-- 资源最小化
-- 懒加载技术
-- 缓存策略
-
-### 4. 可访问性
-- 语义化HTML
-- 足够的对比度
-- 键盘导航支持
-
-## 设计工作流程
-
-\`\`\`mermaid
-graph TD
-    A[需求分析] --> B[线框图]
-    B --> C[视觉设计]
-    C --> D[前端实现]
-    D --> E[测试优化]
-    E --> F[发布]
-    F --> G[持续迭代]
-\`\`\`
-
-## 现代CSS技术
-
-\`\`\`css
-/* CSS Grid布局示例 */
-.container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-/* 自定义属性 */
-:root {
-  --primary-color: #1a73e8;
-  --secondary-color: #f8f9fa;
-}
-
-.card {
-  background: var(--secondary-color);
-  border-radius: 8px;
-  padding: 20px;
-  transition: transform 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-/* 暗色模式支持 */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --secondary-color: #202124;
-  }
+    return Math.max(baseDamage, 1);
 }
 \`\`\`
 
-## 前端框架比较
+> **系统提示：** 恭喜你首次战胜魔兽！获得经验值120点，银月狐皮×1。等级提升至LV2！
 
-| 框架 | 特点 | 适用场景 |
-|------|------|----------|
-| React | 组件化、虚拟DOM | 大型应用、复杂UI |
-| Vue | 渐进式、易上手 | 快速开发、中小型项目 |
-| Svelte | 编译时框架 | 高性能应用、轻量级项目 |
-| Angular | 全功能框架 | 企业级应用、TypeScript项目 |
-`
-        };
+林风感受着体内涌动的力量，抬头望向星空。在这个弱肉强食的世界，他必须尽快适应新的生存法则：
 
-        // 配置marked
-        marked.setOptions({
-            breaks: true,
-            gfm: true
+1. **了解世界规则** - 首要任务是获取这个世界的基本信息
+2. **掌握力量体系** - 无论是魔法还是武技都需要系统学习
+3. **寻找人类聚落** - 独行在森林中太过危险
+4. **探索系统功能** - 这是他在异世界最大的依仗
+
+"既然命运让我来到这里，"林风握紧手中的短剑，眼神逐渐坚定，"那就让我看看，这个世界的巅峰究竟是何等风景！"
+
+紫色的月光透过树叶缝隙洒落，在他身后拉出一道长长的影子。幽暗森林的深处，未知的冒险正等待着他...
+        `;
+
+        // 渲染Markdown内容
+        document.getElementById('markdown-content').innerHTML = marked.parse(markdownContent);
+        
+        // 字体大小控制
+        let fontSize = 1.1; // rem
+        
+        document.getElementById('increaseFont').addEventListener('click', () => {
+            if (fontSize < 1.5) {
+                fontSize += 0.1;
+                updateFontSize();
+            }
         });
         
-        // 初始渲染Markdown
-        function renderMarkdown(articleId = 'design') {
-            const content = markdownContent[articleId] || markdownContent['design'];
-            document.getElementById('markdownContent').innerHTML = marked.parse(content);
-            
-            // 高亮代码块
-            document.querySelectorAll('pre code').forEach((block) => {
-                hljs.highlightElement(block);
-            });
-            
-            // 恢复滚动位置
-            restoreScrollPosition();
+        document.getElementById('decreaseFont').addEventListener('click', () => {
+            if (fontSize > 0.8) {
+                fontSize -= 0.1;
+                updateFontSize();
+            }
+        });
+        
+        document.getElementById('resetFont').addEventListener('click', () => {
+            fontSize = 1.1;
+            updateFontSize();
+        });
+        
+        function updateFontSize() {
+            document.documentElement.style.setProperty('--font-size', fontSize + 'rem');
         }
-
-        // 文章选择事件
-        document.querySelectorAll('.article-list li').forEach(item => {
-            item.addEventListener('click', function() {
-                // 移除所有active类
-                document.querySelectorAll('.article-list li').forEach(li => {
-                    li.classList.remove('active');
-                });
-                
-                // 添加active类到当前项
+        
+        // 侧边栏控制
+        document.getElementById('toggleNav').addEventListener('click', () => {
+            document.querySelector('.sidebar').classList.toggle('open');
+        });
+        
+        document.querySelector('.toggle-sidebar').addEventListener('click', () => {
+            document.querySelector('.sidebar').classList.remove('open');
+        });
+        
+        // 章节点击事件
+        document.querySelectorAll('.chapter').forEach(chapter => {
+            chapter.addEventListener('click', function() {
+                document.querySelectorAll('.chapter').forEach(c => c.classList.remove('active'));
                 this.classList.add('active');
                 
-                // 保存当前文章ID
-                const articleId = this.getAttribute('data-article');
-                localStorage.setItem('lastArticle', articleId);
-                
-                // 渲染对应文章
-                renderMarkdown(articleId);
-                
-                // 滚动到顶部
-                window.scrollTo(0, 0);
-            });
-        });
-
-        // 返回主页按钮
-        document.querySelector('.back-home').addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('返回主页功能已触发！在实际应用中，这里可以跳转到您的主页');
-        });
-
-        // 返回顶部功能
-        const backToTopBtn = document.getElementById('backToTop');
-        
-        backToTopBtn.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+                // 在真实应用中，这里会加载新章节内容
+                // 现在只是简单更新标题
+                const title = this.querySelector('.chapter-title').textContent;
+                document.querySelector('#markdown-content h1').textContent = title;
             });
         });
         
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-                backToTopBtn.classList.add('show');
-            } else {
-                backToTopBtn.classList.remove('show');
-            }
-            
-            // 保存滚动位置
-            saveScrollPosition();
-        });
-        
-        // 保存滚动位置
-        function saveScrollPosition() {
-            const scrollPosition = window.pageYOffset;
-            localStorage.setItem('scrollPosition', scrollPosition);
+        // 移动设备默认关闭侧边栏
+        if (window.innerWidth <= 900) {
+            document.querySelector('.sidebar').classList.remove('open');
         }
-        
-        // 恢复滚动位置
-        function restoreScrollPosition() {
-            const savedPosition = localStorage.getItem('scrollPosition');
-            if (savedPosition) {
-                setTimeout(() => {
-                    window.scrollTo(0, parseInt(savedPosition));
-                }, 100);
-            }
-        }
-        
-        // 页面加载时初始化
-        document.addEventListener('DOMContentLoaded', () => {
-            // 恢复上次阅读的文章
-            const lastArticle = localStorage.getItem('lastArticle') || 'design';
-            document.querySelector(`[data-article="${lastArticle}"]`).classList.add('active');
-            
-            // 渲染文章
-            renderMarkdown(lastArticle);
-            
-            // 恢复滚动位置
-            restoreScrollPosition();
-        });
     </script>
 </body>
 </html>
