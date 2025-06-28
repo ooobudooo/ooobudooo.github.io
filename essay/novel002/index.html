@@ -64,6 +64,7 @@
             justify-content: center;
             transition: all 0.2s;
             font-weight: bold;
+            font-size: 1.2rem;
         }
 
         .font-controls button:hover {
@@ -107,6 +108,7 @@
         .markdown-content {
             font-size: 1.1rem;
             line-height: 1.9;
+            text-align: left;
         }
 
         .markdown-content h1 {
@@ -115,7 +117,6 @@
             padding-bottom: 0.5rem;
             border-bottom: 1px solid #333;
             color: #FFFFFF;
-            text-align: left;
             font-weight: 600;
         }
 
@@ -124,8 +125,6 @@
             margin: 1.3rem 0 0.8rem;
             color: #FFFFFF;
             font-weight: 600;
-            padding-left: 0;
-            border-left: none;
         }
 
         .markdown-content h3 {
@@ -137,7 +136,6 @@
 
         .markdown-content p {
             margin: 1.2rem 0;
-            text-align: left;
         }
 
         .markdown-content blockquote {
@@ -222,6 +220,7 @@
             .font-controls button {
                 width: 32px;
                 height: 32px;
+                font-size: 1.1rem;
             }
             
             .markdown-content h1 {
@@ -301,9 +300,19 @@
         
         .title {
             text-align: center;
-            padding: 10px 0 5px;
+            padding: 10px 0 20px;
             font-size: 1.2rem;
             color: #ccc;
+        }
+        
+        .content-container {
+            display: none;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 50px 0;
+            color: #777;
         }
     </style>
 </head>
@@ -335,7 +344,10 @@
         </div>
         <div class="reader-content">
             <div class="title">《暗影纪元》</div>
-            <div id="markdown-content" class="markdown-content"></div>
+            <div class="content-container">
+                <div id="markdown-content" class="markdown-content"></div>
+            </div>
+            <div id="loading" class="loading">内容加载中...</div>
         </div>
     </div>
 
@@ -346,8 +358,21 @@
     </footer>
 
     <script>
-        // 示例Markdown内容
-        const markdownContent = `
+        // 确保marked库加载完成后再渲染内容
+        document.addEventListener('DOMContentLoaded', function() {
+            // 检查marked是否加载成功
+            if (typeof marked === 'undefined') {
+                document.getElementById('loading').innerHTML = 'Markdown解析库加载失败，正在显示纯文本内容...';
+                renderPlainText();
+            } else {
+                renderContent();
+            }
+        });
+
+        // 渲染Markdown内容
+        function renderContent() {
+            // 示例Markdown内容
+            const markdownContent = `
 # 暗影之塔
 
 夜幕低垂，月光被浓密的乌云遮蔽。凯尔站在古老的高塔前，手中的火把在风中摇曳，投射出扭曲的影子。这座塔已经废弃了数百年，但今晚，塔顶却闪烁着不祥的紫色光芒。
@@ -378,7 +403,7 @@
 
 在第二层的墙壁上，凯尔发现了刻满整个墙面的古代符文：
 
-```javascript
+\`\`\`javascript
 // 符文翻译算法
 function translateElderFuthark(runes) {
     const futharkMap = {
@@ -398,3 +423,189 @@ function translateElderFuthark(runes) {
 const wallInscription = "ᚨᛚᛚᚦᚨᛏ᛬ᚺᚨᛚᛚ᛬ᛞᚨᚱᚲᚾᛖᛋᛋ";
 console.log("译文:", translateElderFuthark(wallInscription));
 // 输出: allthat halldarkness
+\`\`\`
+
+> "光所不及之处，黑暗统治万物" — 凯尔低声翻译道
+
+## 实验室的发现
+
+第三层的实验室里，凯尔发现了一个仍在运作的炼金装置：
+
+- 中央的玻璃容器中悬浮着发光的紫色晶体
+- 工作台上散落着写满公式的羊皮纸
+- 墙角的笼子里有未知生物的骸骨
+- 书架后隐藏着一个暗格
+
+在暗格中，凯尔找到了一本皮革封面的日志：
+
+\`\`\`
+日期：星历347年霜月17日
+实验记录 #42
+
+水晶对暗影能量的共鸣超出预期。当暴露在月光下时：
+- 能量输出增加300%
+- 周围空间出现不稳定波动
+- 实验动物表现出攻击性增强
+
+警告：水晶似乎具有意识，开始影响研究人员梦境。
+\`\`\`
+
+## 顶层的对峙
+
+当凯尔到达观星台时，眼前的景象让他屏住了呼吸：
+
+巨大的紫色水晶悬浮在房间中央，散发着诡异的能量波动。水晶下方是一个复杂的魔法阵，七个身穿黑袍的人影围绕法阵站立。
+
+"你来得太迟了，猎魔人。"为首的黑袍人转过身，兜帽下是深不见底的黑暗，"暗影之门即将开启！"
+
+凯尔拔出长剑："以光之名，我绝不会让你们的计划得逞！"
+
+黑袍人发出刺耳的笑声："光？在这个地方？" 他抬手一挥，房间内所有光源瞬间熄灭。
+
+在绝对的黑暗中，凯尔听到了利爪摩擦地面的声音...
+
+---
+
+> 下一章预告：**暗影生物与光之抉择**
+`;
+            
+            try {
+                // 渲染Markdown内容
+                document.getElementById('markdown-content').innerHTML = marked.parse(markdownContent);
+                
+                // 隐藏加载提示，显示内容
+                document.getElementById('loading').style.display = 'none';
+                document.querySelector('.content-container').style.display = 'block';
+            } catch (e) {
+                console.error('Markdown解析错误:', e);
+                document.getElementById('loading').innerHTML = '内容解析失败，正在显示纯文本...';
+                renderPlainText(markdownContent);
+            }
+        }
+        
+        // 显示纯文本内容（备用方案）
+        function renderPlainText(content) {
+            if (!content) {
+                content = `# 暗影之塔
+
+夜幕低垂，月光被浓密的乌云遮蔽。凯尔站在古老的高塔前，手中的火把在风中摇曳，投射出扭曲的影子。这座塔已经废弃了数百年，但今晚，塔顶却闪烁着不祥的紫色光芒。
+
+"终于找到了..."凯尔喃喃自语，握紧了腰间的剑柄。
+
+## 塔内结构
+
+高塔内部的结构出人意料的复杂：
+
+1. 入口大厅 - 布满陷阱的机关地板
+2. 藏书室 - 被诅咒的魔法典籍
+3. 实验室 - 炼金术士的遗留装置
+4. 观星台 - 能量波动源头
+5. 禁闭室 - 未知生物的低语
+
+凯尔小心翼翼地避开入口大厅的机关，地板上的符文在火把照耀下若隐若现。
+
+【侦测到魔法陷阱】
+类型：火焰符文
+解除难度：中等
+
+## 实验室的发现
+
+在暗格中，凯尔找到了一本皮革封面的日志：
+
+日期：星历347年霜月17日
+实验记录 #42
+
+水晶对暗影能量的共鸣超出预期。当暴露在月光下时：
+- 能量输出增加300%
+- 周围空间出现不稳定波动
+- 实验动物表现出攻击性增强
+
+警告：水晶似乎具有意识，开始影响研究人员梦境。
+
+## 顶层的对峙
+
+当凯尔到达观星台时，眼前的景象让他屏住了呼吸：
+
+巨大的紫色水晶悬浮在房间中央，散发着诡异的能量波动。水晶下方是一个复杂的魔法阵，七个身穿黑袍的人影围绕法阵站立。
+
+"你来得太迟了，猎魔人。"为首的黑袍人转过身，兜帽下是深不见底的黑暗，"暗影之门即将开启！"
+
+凯尔拔出长剑："以光之名，我绝不会让你们的计划得逞！"
+
+黑袍人发出刺耳的笑声："光？在这个地方？" 他抬手一挥，房间内所有光源瞬间熄灭。
+
+在绝对的黑暗中，凯尔听到了利爪摩擦地面的声音...`;
+            }
+            
+            document.getElementById('markdown-content').innerHTML = 
+                `<pre style="white-space: pre-wrap;">${content}</pre>`;
+            document.getElementById('loading').style.display = 'none';
+            document.querySelector('.content-container').style.display = 'block';
+        }
+
+        // 字体大小控制
+        let fontSize = 1.1;
+        
+        document.getElementById('increaseFont').addEventListener('click', () => {
+            if (fontSize < 1.5) {
+                fontSize += 0.1;
+                updateFontSize();
+            }
+        });
+        
+        document.getElementById('decreaseFont').addEventListener('click', () => {
+            if (fontSize > 0.8) {
+                fontSize -= 0.1;
+                updateFontSize();
+            }
+        });
+        
+        function updateFontSize() {
+            document.querySelector('.markdown-content').style.fontSize = fontSize + 'rem';
+        }
+        
+        // 章节导航
+        let currentChapter = 7;
+        const totalChapters = 85;
+        
+        document.getElementById('nextChapter').addEventListener('click', () => {
+            if (currentChapter < totalChapters) {
+                currentChapter++;
+                updateChapter();
+            }
+        });
+        
+        document.getElementById('prevChapter').addEventListener('click', () => {
+            if (currentChapter > 1) {
+                currentChapter--;
+                updateChapter();
+            }
+        });
+        
+        function updateChapter() {
+            document.querySelector('footer div:first-child').textContent = 
+                `第 ${currentChapter} 章 · 作者：墨影 · 共${totalChapters}章`;
+        }
+        
+        // 滚动进度
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            
+            document.querySelector('.progress').style.width = scrollPercent + '%';
+        });
+        
+        // 移动设备优化
+        function adjustForMobile() {
+            if (window.innerWidth <= 480) {
+                fontSize = 1.0;
+                updateFontSize();
+            }
+        }
+        
+        window.addEventListener('resize', adjustForMobile);
+        adjustForMobile();
+    </script>
+</body>
+</html>
