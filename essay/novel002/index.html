@@ -3,24 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>深色Markdown小说阅读器</title>
+    <title>纯白文字小说阅读器</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --bg-primary: #121212;
-            --bg-secondary: #1e1e1e;
-            --bg-tertiary: #2d2d2d;
-            --text-primary: #e0e0e0;
-            --text-secondary: #b0b0b0;
-            --theme-color: #4a86e8; /* 默认蓝色 */
-            --border-color: #333;
-            --shadow-color: rgba(0, 0, 0, 0.5);
-            --hover-color: #333;
-            --font-size: 1.1rem;
-            --sidebar-width: 280px;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -29,137 +15,15 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #121212;
+            color: #FFFFFF; /* 所有文字使用白色 */
+            line-height: 1.8;
             display: flex;
             flex-direction: column;
             height: 100vh;
             overflow: hidden;
-        }
-
-        /* 顶部导航栏 */
-        header {
-            background-color: var(--bg-secondary);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            box-shadow: 0 2px 10px var(--shadow-color);
-            z-index: 10;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo i {
-            color: var(--theme-color);
-            font-size: 1.8rem;
-        }
-
-        .logo h1 {
-            font-size: 1.5rem;
-            font-weight: 500;
-        }
-
-        .theme-selector {
-            display: flex;
-            gap: 8px;
-        }
-
-        .theme-color {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: transform 0.2s;
-        }
-
-        .theme-color:hover {
-            transform: scale(1.2);
-        }
-
-        .theme-color.active {
-            border-color: white;
-            box-shadow: 0 0 5px rgba(255,255,255,0.5);
-        }
-
-        /* 主要内容区域 */
-        .main-container {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
-
-        /* 左侧导航栏 */
-        .sidebar {
-            width: var(--sidebar-width);
-            background-color: var(--bg-secondary);
-            border-right: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .sidebar-header {
-            padding: 15px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .sidebar-header h2 {
-            font-size: 1.2rem;
-            font-weight: 500;
-        }
-
-        .toggle-sidebar {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-
-        .chapters {
-            overflow-y: auto;
-            flex: 1;
-            padding: 10px 0;
-        }
-
-        .chapter {
-            padding: 12px 20px;
-            cursor: pointer;
-            border-left: 3px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .chapter:hover {
-            background: var(--hover-color);
-        }
-
-        .chapter.active {
-            background: var(--bg-tertiary);
-            border-left: 3px solid var(--theme-color);
-            color: var(--theme-color);
-        }
-
-        .chapter-title {
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-
-        .chapter-info {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
+            padding: 0;
         }
 
         /* 阅读区域 */
@@ -171,458 +35,469 @@
         }
 
         .reader-controls {
-            padding: 15px;
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
+            padding: 12px 15px;
+            background: #1a1a1a;
+            border-bottom: 1px solid #333;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 10px;
         }
 
         .font-controls {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .font-controls button {
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
+            background: #2a2a2a;
+            border: 1px solid #333;
+            color: #FFFFFF;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.2s;
         }
 
         .font-controls button:hover {
-            background: var(--hover-color);
+            background: #002080;
+            transform: scale(1.1);
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .control-btn {
+            background: #2a2a2a;
+            color: #FFFFFF;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 8px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .control-btn:hover {
+            background: #002080;
+            border-color: #0040c0;
         }
 
         /* 阅读内容 */
         .reader-content {
             flex: 1;
             overflow-y: auto;
-            padding: 30px;
+            padding: 20px 15px;
             margin: 0 auto;
             width: 100%;
-            max-width: 1200px;
+            max-width: 800px;
         }
 
         .markdown-content {
-            font-size: var(--font-size);
-            line-height: 1.8;
+            font-size: 1.1rem;
+            line-height: 1.9;
         }
 
         .markdown-content h1 {
-            font-size: 2.2rem;
+            font-size: 2.0rem;
             margin: 1.5rem 0;
             padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--theme-color);
+            border-bottom: 1px solid #333;
+            color: #FFFFFF;
+            text-align: center;
+            font-weight: 600;
         }
 
         .markdown-content h2 {
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             margin: 1.3rem 0 0.8rem;
-            color: var(--theme-color);
+            color: #FFFFFF;
+            font-weight: 600;
+            padding-left: 10px;
+            border-left: 4px solid #002080;
         }
 
         .markdown-content h3 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             margin: 1.1rem 0 0.7rem;
-            color: var(--theme-color);
+            color: #FFFFFF;
+            font-weight: 500;
         }
 
         .markdown-content p {
-            margin: 1rem 0;
+            margin: 1.2rem 0;
             text-align: justify;
+            text-indent: 2em;
         }
 
         .markdown-content blockquote {
-            border-left: 4px solid var(--theme-color);
-            padding: 0.5rem 1rem;
-            margin: 1rem 0;
-            background: var(--bg-tertiary);
+            border-left: 4px solid #002080;
+            padding: 0.8rem 1.2rem;
+            margin: 1.2rem 0;
+            background: #1a1a1a;
             border-radius: 0 4px 4px 0;
+            font-style: italic;
+            color: #e0e0e0;
         }
 
         .markdown-content pre {
-            background: var(--bg-tertiary);
-            padding: 1rem;
-            border-radius: 4px;
+            background: #1a1a1a;
+            padding: 1.2rem;
+            border-radius: 6px;
             overflow-x: auto;
-            margin: 1.2rem 0;
+            margin: 1.5rem 0;
+            border-left: 3px solid #002080;
         }
 
         .markdown-content code {
-            font-family: 'Courier New', monospace;
-            background: var(--bg-tertiary);
+            font-family: 'Fira Code', 'Courier New', monospace;
+            background: #1a1a1a;
             padding: 0.2rem 0.4rem;
             border-radius: 3px;
-        }
-
-        .markdown-content em {
-            font-style: italic;
+            color: #ffffff;
         }
 
         .markdown-content strong {
             font-weight: bold;
+            color: #ffffff;
         }
 
         .markdown-content table {
             width: 100%;
             border-collapse: collapse;
             margin: 1.5rem 0;
+            border: 1px solid #333;
         }
 
         .markdown-content th, .markdown-content td {
-            border: 1px solid var(--border-color);
-            padding: 0.75rem;
+            border: 1px solid #333;
+            padding: 0.8rem;
             text-align: left;
+            color: #ffffff;
         }
 
         .markdown-content th {
-            background-color: var(--bg-tertiary);
+            background-color: #1a1a1a;
             font-weight: bold;
         }
 
         /* 底部信息 */
         footer {
-            padding: 15px 20px;
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
+            padding: 12px 15px;
+            background: #1a1a1a;
+            border-top: 1px solid #333;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
+            font-size: 0.85rem;
+            color: #cccccc;
         }
 
-        /* 响应式设计 */
-        @media (max-width: 900px) {
-            .sidebar {
-                position: absolute;
-                left: 0;
-                top: 0;
-                bottom: 0;
-                z-index: 20;
-                transform: translateX(-100%);
-            }
-
-            .sidebar.open {
-                transform: translateX(0);
-                box-shadow: 3px 0 15px var(--shadow-color);
-            }
-
-            .reader-controls {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-
-        @media (max-width: 600px) {
+        /* 响应式设计 - 移动设备优化 */
+        @media (max-width: 768px) {
             .reader-content {
-                padding: 20px 15px;
+                padding: 15px 10px;
             }
-
+            
+            .reader-controls {
+                padding: 10px;
+                gap: 5px;
+            }
+            
+            .control-btn {
+                padding: 6px 10px;
+                font-size: 0.9rem;
+            }
+            
+            .font-controls button {
+                width: 32px;
+                height: 32px;
+                font-size: 0.9rem;
+            }
+            
             .markdown-content h1 {
-                font-size: 1.8rem;
+                font-size: 1.7rem;
             }
 
             .markdown-content h2 {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
 
             .markdown-content h3 {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
+            }
+            
+            .markdown-content p {
+                text-indent: 1.5em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .reader-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .nav-controls {
+                justify-content: center;
+                margin-top: 8px;
+            }
+            
+            .font-controls {
+                justify-content: center;
+            }
+            
+            .markdown-content h1 {
+                font-size: 1.5rem;
+            }
+            
+            footer {
+                flex-direction: column;
+                gap: 5px;
+                text-align: center;
+            }
+            
+            .markdown-content p {
+                text-indent: 1.2em;
             }
         }
 
         /* 深色滚动条 */
         ::-webkit-scrollbar {
             width: 8px;
-            height: 8px;
         }
 
         ::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
+            background: #1a1a1a;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--bg-tertiary);
+            background: #333;
             border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #555;
+            background: #444;
+        }
+        
+        /* 章节指示器 */
+        .chapter-indicator {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            color: #ffffff;
+            font-weight: 500;
+            padding: 8px;
+            background: rgba(0, 32, 128, 0.2);
+            border-radius: 4px;
+        }
+        
+        /* 进度指示器 */
+        .progress-bar {
+            height: 4px;
+            width: 100%;
+            background: #2a2a2a;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+        
+        .progress {
+            height: 100%;
+            background: #002080;
+            width: 35%;
+            transition: width 0.3s ease;
         }
     </style>
 </head>
 <body>
-    <!-- 顶部导航栏 -->
-    <header>
-        <div class="logo">
-            <i class="fas fa-book-open"></i>
-            <h1>深色Markdown小说阅读器</h1>
-        </div>
-        <div class="theme-selector">
-            <div class="theme-color" style="background-color: #ff6b6b;" data-color="#ff6b6b" title="红色"></div>
-            <div class="theme-color" style="background-color: #ffa94d;" data-color="#ffa94d" title="橙色"></div>
-            <div class="theme-color" style="background-color: #ffd43b;" data-color="#ffd43b" title="黄色"></div>
-            <div class="theme-color" style="background-color: #51cf66;" data-color="#51cf66" title="绿色"></div>
-            <div class="theme-color" style="background-color: #20c997;" data-color="#20c997" title="青色"></div>
-            <div class="theme-color active" style="background-color: #4a86e8;" data-color="#4a86e8" title="蓝色"></div>
-            <div class="theme-color" style="background-color: #9a6ee8;" data-color="#9a6ee8" title="紫色"></div>
-        </div>
-    </header>
-
-    <!-- 主要内容区域 -->
-    <div class="main-container">
-        <!-- 左侧导航栏 -->
-        <div class="sidebar open">
-            <div class="sidebar-header">
-                <h2>章节列表</h2>
-                <button class="toggle-sidebar">
-                    <i class="fas fa-times"></i>
+    <!-- 顶部进度条 -->
+    <div class="progress-bar">
+        <div class="progress"></div>
+    </div>
+    
+    <!-- 阅读区域 -->
+    <div class="reader-container">
+        <div class="reader-controls">
+            <div class="font-controls">
+                <button id="decreaseFont" title="减小字体">
+                    <i class="fas fa-font"></i>
+                </button>
+                <button id="resetFont" title="重置字体">
+                    <i class="fas fa-text-height"></i>
+                </button>
+                <button id="increaseFont" title="增大字体">
+                    <i class="fas fa-text-width"></i>
                 </button>
             </div>
-            <div class="chapters">
-                <div class="chapter active">
-                    <div class="chapter-title">第1章 穿越异世界</div>
-                    <div class="chapter-info">字数: 3.2k · 阅读时间: 15分钟</div>
-                </div>
-                <div class="chapter">
-                    <div class="chapter-title">第2章 神秘的系统</div>
-                    <div class="chapter-info">字数: 2.8k · 阅读时间: 12分钟</div>
-                </div>
-                <div class="chapter">
-                    <div class="chapter-title">第3章 初遇魔法</div>
-                    <div class="chapter-info">字数: 3.5k · 阅读时间: 16分钟</div>
-                </div>
-                <div class="chapter">
-                    <div class="chapter-title">第4章 学院测试</div>
-                    <div class="chapter-info">字数: 4.1k · 阅读时间: 18分钟</div>
-                </div>
-                <div class="chapter">
-                    <div class="chapter-title">第5章 隐藏的天赋</div>
-                    <div class="chapter-info">字数: 3.7k · 阅读时间: 17分钟</div>
-                </div>
-                <div class="chapter">
-                    <div class="chapter-title">第6章 导师的选择</div>
-                    <div class="chapter-info">字数: 3.9k · 阅读时间: 18分钟</div>
-                </div>
-                <div class="chapter">
-                    <div class="chapter-title">第7章 图书馆的秘密</div>
-                    <div class="chapter-info">字数: 4.3k · 阅读时间: 20分钟</div>
-                </div>
-                <div class="chapter">
-                    <div class="chapter-title">第8章 禁术卷轴</div>
-                    <div class="chapter-info">字数: 3.6k · 阅读时间: 16分钟</div>
-                </div>
-                <div class="chapter">
-                    <div class="chapter-title">第9章 元素试炼</div>
-                    <div class="chapter-info">字数: 4.2k · 阅读时间: 19分钟</div>
-                </div>
-                <div class="chapter">
-                    <div class="chapter-title">第10章 龙之谷</div>
-                    <div class="chapter-info">字数: 4.5k · 阅读时间: 21分钟</div>
-                </div>
-                <div class="chapter">
-                    <div class="chapter-title">第11章 古龙契约</div>
-                    <div class="chapter-info">字数: 4.0k · 阅读时间: 18分钟</div>
-                </div>
-                <div class="chapter">
-                    <div class="chapter-title">第12章 深渊入侵</div>
-                    <div class="chapter-info">字数: 4.8k · 阅读时间: 22分钟</div>
-                </div>
+            <div class="nav-controls">
+                <button id="prevChapter" class="control-btn">
+                    <i class="fas fa-chevron-left"></i> 上一章
+                </button>
+                <button id="nextChapter" class="control-btn">
+                    下一章 <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
-
-        <!-- 阅读区域 -->
-        <div class="reader-container">
-            <div class="reader-controls">
-                <button id="toggleNav" class="control-btn">
-                    <i class="fas fa-bars"></i> 目录
-                </button>
-                <div class="font-controls">
-                    <button id="decreaseFont" title="减小字体">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button id="resetFont" title="重置字体">
-                        <i class="fas fa-text-height"></i>
-                    </button>
-                    <button id="increaseFont" title="增大字体">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-                <div>
-                    <button class="control-btn">
-                        <i class="fas fa-chevron-left"></i> 上一章
-                    </button>
-                    <button class="control-btn">
-                        下一章 <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="reader-content">
-                <div id="markdown-content" class="markdown-content"></div>
-            </div>
+        <div class="reader-content">
+            <div class="chapter-indicator">第 5 章：星辰觉醒</div>
+            <div id="markdown-content" class="markdown-content"></div>
         </div>
     </div>
 
     <!-- 底部信息 -->
     <footer>
-        <div>《异界征途》 · 作者：星辰幻影 · 共128章</div>
-        <div>阅读进度：第1章/第128章</div>
+        <div>《星辰纪元》 · 作者：夜影 · 第5章/共95章</div>
+        <div>阅读时长：32分钟</div>
     </footer>
 
     <script>
-        // 示例Markdown内容（扩展版）
+        // 示例Markdown内容
         const markdownContent = `
-# 第1章 穿越异世界
+# 星辰觉醒
 
-林风缓缓睁开双眼，映入眼帘的是一片陌生的景象。高耸入云的奇异植物散发着幽蓝光芒，天空中悬挂着两轮明月，一银一紫，交相辉映。
+夜幕笼罩着古老的星辉学院，林风独自站在观星台上，仰望着璀璨的银河。自从在古塔地下室遭遇暗影之书后，他体内的星辰之力开始觉醒。
 
-"这是...什么地方？"他挣扎着坐起身，头痛欲裂。最后的记忆停留在实验室的爆炸中——他正在测试自己研发的量子传送装置。
+> "星辰之力是宇宙最原始的力量，是连接万物本源的桥梁。" —《星界秘典》
 
-## 神秘的系统提示
+## 星图初现
 
-就在林风试图理清思绪时，一个冰冷的电子音在脑海中响起：
-
-\`\`\`
-【系统激活中...】
-【检测到宿主生命体征...】
-【灵魂绑定完成！】
-【欢迎使用多维进化系统1.0】
-\`\`\`
-
-眼前突然浮现出一个半透明的蓝色界面：
-
-| 属性 | 数值 |
-|------|------|
-| **姓名** | 林风 |
-| **种族** | 人类 (碳基生命体) |
-| **等级** | LV1 |
-| **生命力** | 120/150 |
-| **精神力** | 85/100 |
-| **力量** | 8 |
-| **敏捷** | 9 |
-| **智力** | 15 |
-| **天赋** | 未觉醒 |
-
-> **系统提示：** 你已穿越到艾泽拉大陆，当前处于幽暗森林边缘区域。建议尽快寻找安全区域！
-
-## 初次遭遇
-
-林风强忍着身体的疼痛站起身，环顾四周。突然，不远处的灌木丛中传来窸窣声响。他本能地蹲下身，屏住呼吸。
-
-一只通体银白、形似狐狸却长着三只尾巴的生物钻了出来。它头顶悬浮着一行半透明的文字：
+当林风凝视星空时，他眼前浮现出一幅复杂的星图：
 
 \`\`\`
-【月影狐】
-等级：LV3
-特性：夜行生物，擅长幻术
-危险程度：中等
+【星图：猎户座γ星系】
+能量等级：★★★★☆
+空间坐标：X-378, Y-219, Z-47
 \`\`\`
 
-生物似乎察觉到了林风的存在，突然转向他的方向，三只尾巴竖立起来，眼中泛起诡异的蓝光。
-
-"糟了！"林风暗叫不好。就在此时，系统提示再次响起：
-
-\`\`\`
-【检测到危机！】
-【新手礼包已解锁】
-【是否立即开启？[是]/[否]】
-\`\`\`
-
-"是！"林风毫不犹豫地在心中默念。
-
-\`\`\`
-【获得物品：】
-- 基础治疗药剂 ×3
-- 精钢短剑 ×1
-- 初级魔法卷轴【火焰冲击】×2
-- 银币 ×50
-\`\`\`
-
-一把闪着寒光的短剑凭空出现在林风手中，同时几张刻着神秘符文的卷轴落在他脚边。
-
-月影狐发出一声尖锐的嘶鸣，化作三道残影向他扑来...
-
----
-
-## 战斗后的思考
-
-林风靠在古树上喘息，看着地上逐渐消散的月影狐尸体。刚才的战斗虽然短暂却惊心动魄，他凭借火焰卷轴和突然爆发的速度才勉强取胜。
+这幅星图似乎与他体内的某种力量产生了共鸣。他伸出右手，尝试引导这股力量：
 
 \`\`\`javascript
-// 简单的战斗计算示例
-function calculateDamage(attacker, defender) {
-    let baseDamage = attacker.strength * 2 - defender.defense;
-    // 暴击判定
-    if (Math.random() < attacker.criticalChance) {
-        baseDamage *= 2;
-        console.log("Critical hit!");
+function activateStellarPower(user) {
+    const constellations = {
+        orion: { power: 4.5, element: "cosmic" },
+        lyra: { power: 3.8, element: "light" },
+        draco: { power: 4.2, element: "shadow" }
+    };
+    
+    // 检测用户星座亲和力
+    let affinity = 0;
+    for (const key in constellations) {
+        if (user.stellarSignature.includes(key)) {
+            affinity += constellations[key].power;
+        }
     }
-    return Math.max(baseDamage, 1);
+    
+    // 觉醒判定
+    if (affinity >= 4.0) {
+        console.log("星辰之力觉醒！");
+        return {
+            status: "awakened",
+            affinity: affinity.toFixed(1),
+            abilities: ["星尘护盾", "银河光束"]
+        };
+    } else {
+        console.log("星辰之力未完全觉醒");
+        return { status: "dormant" };
+    }
 }
+
+const linFeng = {
+    name: "林风",
+    stellarSignature: ["orion", "lyra"]
+};
+
+const result = activateStellarPower(linFeng);
+console.log("觉醒结果:", result);
 \`\`\`
 
-> **系统提示：** 恭喜你首次战胜魔兽！获得经验值120点，银月狐皮×1。等级提升至LV2！
+## 星辰之力特性
 
-林风感受着体内涌动的力量，抬头望向星空。在这个弱肉强食的世界，他必须尽快适应新的生存法则：
+林风在《星界秘典》中发现了关于星辰之力的记载：
 
-1. **了解世界规则** - 首要任务是获取这个世界的基本信息
-2. **掌握力量体系** - 无论是魔法还是武技都需要系统学习
-3. **寻找人类聚落** - 独行在森林中太过危险
-4. **探索系统功能** - 这是他在异世界最大的依仗
+| 特性 | 描述 | 应用 |
+|------|------|------|
+| **无界连接** | 可跨越空间与星体建立联系 | 星际通讯、空间感知 |
+| **能量转化** | 将星光转化为可用能量 | 攻击、防御、治疗 |
+| **时空共振** | 感知并影响时空结构 | 瞬间移动、时间缓流 |
+| **星灵召唤** | 召唤星界生物协助 | 战斗支援、知识获取 |
 
-"既然命运让我来到这里，"林风握紧手中的短剑，眼神逐渐坚定，"那就让我看看，这个世界的巅峰究竟是何等风景！"
+> **系统提示：** 星辰之力等级提升至Lv2！解锁新能力【星尘护盾】。
 
-紫色的月光透过树叶缝隙洒落，在他身后拉出一道长长的影子。幽暗森林的深处，未知的冒险正等待着他...
+## 星界试炼
+
+次日清晨，学院导师艾莉娅带领林风来到星界试炼场：
+
+1. **星光隧道**  
+   穿过由旋转星尘构成的通道，躲避能量漩涡
+   
+2. **星座谜题**  
+   按正确顺序点亮猎户座七颗主星
+
+3. **星灵对决**  
+   召唤星灵与守护者战斗
+
+当林风通过最终试炼时，整个试炼场突然剧烈震动，穹顶化为浩瀚星空，无数星辰向他涌来，形成一道耀眼的光柱！
+
+\`\`\`
+【星界共鸣】激活！
+能量吸收率：98.7%
+星辰亲和力提升至S级！
+\`\`\`
+
+## 星辰之力的代价
+
+当晚，林风在冥想中感受到异常：
+
+- 右手掌心出现闪烁的星形印记
+- 耳边持续响起星界低语
+- 梦境中出现从未见过的星系景象
+
+> "星辰之力既是馈赠也是诅咒，觉醒者必须学会与宇宙共舞。" — 艾莉娅导师
+
+林风意识到，每次使用星辰之力都会在体内留下不可逆转的星痕。他翻开《星界秘典》最后一章，上面赫然写着：
+
+**"当星痕遍布全身，觉醒者将化为星辰，回归宇宙本源。"**
+
+## 命运的抉择
+
+在学院图书馆深处，林风发现了一本被封印的古籍：
+
+\`\`\`
+《逆星者手札》
+作者：卡里奥斯（最后一位逆星者）
+状态：封印中（需要星辰之血解封）
+\`\`\`
+
+书中记载了打破星辰诅咒的方法：
+
+1. 收集七大星核碎片
+2. 在星蚀之日举行仪式
+3. 以自身为容器重构星核
+
+林风抚摸着书页，陷入沉思。窗外，一颗流星划过夜空，仿佛在预示着什么...
 
 ---
 
-## 世界背景设定
+> 下一章预告：**星核碎片与远古遗迹**
+`;
 
-艾泽拉大陆是一个充满魔法与奇迹的世界，由五个主要势力组成：
-
-| 势力 | 首都 | 主要种族 | 特点 |
-|------|------|----------|------|
-| **奥术帝国** | 星耀城 | 人类、精灵 | 魔法研究领先，学院林立 |
-| **兽人部落** | 铁血要塞 | 兽人、半兽人 | 崇尚武力，部落制度 |
-| **精灵王国** | 永歌森林 | 高等精灵、木精灵 | 自然魔法，长寿种族 |
-| **矮人联邦** | 钢铁山脉 | 山地矮人、灰矮人 | 锻造大师，地下城建造者 |
-| **自由城邦** | 黄金港 | 各族混居 | 商业中心，中立地区 |
-
-> **系统百科：** 艾泽拉大陆存在多种力量体系：
-> - **元素魔法**：操控火、水、风、土等自然元素
-> - **神圣法术**：信仰驱动的治疗与防护魔法
-> - **奥术技艺**：对魔法本质的研究与应用
-> - **战气修炼**：将生命能量转化为战斗力的武技
-> - **血脉传承**：通过古老血脉觉醒的特殊能力
-
-林风在月光下展开从月影狐身上获得的皮质地图，上面标记着最近的城镇——位于幽暗森林东侧的"暮光镇"。他收起地图，望向东方逐渐泛白的天空，踏上了前往人类聚居地的旅程...
-
----
-
-## 第二章预告
-
-> 穿过危机四伏的幽暗森林，林风终于抵达暮光镇。这座边境小镇隐藏着怎样的秘密？在冒险者公会，他遇到了神秘的黑袍法师，对方似乎察觉到了系统的存在...
-
-**下一章：神秘的系统**`;
-        
         // 渲染Markdown内容
         document.getElementById('markdown-content').innerHTML = marked.parse(markdownContent);
         
         // 字体大小控制
-        let fontSize = 1.1; // rem
+        let fontSize = 1.1;
         
         document.getElementById('increaseFont').addEventListener('click', () => {
             if (fontSize < 1.5) {
@@ -644,47 +519,64 @@ function calculateDamage(attacker, defender) {
         });
         
         function updateFontSize() {
-            document.documentElement.style.setProperty('--font-size', fontSize + 'rem');
+            document.querySelector('.markdown-content').style.fontSize = fontSize + 'rem';
         }
         
-        // 侧边栏控制
-        document.getElementById('toggleNav').addEventListener('click', () => {
-            document.querySelector('.sidebar').classList.toggle('open');
+        // 章节导航
+        let currentChapter = 5;
+        const totalChapters = 95;
+        
+        document.getElementById('nextChapter').addEventListener('click', () => {
+            if (currentChapter < totalChapters) {
+                currentChapter++;
+                updateChapter();
+            }
         });
         
-        document.querySelector('.toggle-sidebar').addEventListener('click', () => {
-            document.querySelector('.sidebar').classList.remove('open');
+        document.getElementById('prevChapter').addEventListener('click', () => {
+            if (currentChapter > 1) {
+                currentChapter--;
+                updateChapter();
+            }
         });
         
-        // 章节点击事件
-        document.querySelectorAll('.chapter').forEach(chapter => {
-            chapter.addEventListener('click', function() {
-                document.querySelectorAll('.chapter').forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
-                
-                // 在真实应用中，这里会加载新章节内容
-                // 现在只是简单更新标题
-                const title = this.querySelector('.chapter-title').textContent;
-                document.querySelector('#markdown-content h1').textContent = title;
-            });
-        });
-        
-        // 主题颜色切换
-        document.querySelectorAll('.theme-color').forEach(color => {
-            color.addEventListener('click', function() {
-                const newColor = this.getAttribute('data-color');
-                document.documentElement.style.setProperty('--theme-color', newColor);
-                
-                // 更新激活状态
-                document.querySelectorAll('.theme-color').forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-        
-        // 移动设备默认关闭侧边栏
-        if (window.innerWidth <= 900) {
-            document.querySelector('.sidebar').classList.remove('open');
+        function updateChapter() {
+            document.querySelector('.chapter-indicator').textContent = `第 ${currentChapter} 章：${getChapterTitle(currentChapter)}`;
+            document.querySelector('footer div:first-child').textContent = 
+                `《星辰纪元》 · 作者：夜影 · 第${currentChapter}章/共${totalChapters}章`;
         }
+        
+        function getChapterTitle(chapter) {
+            const titles = {
+                1: "星落之夜",
+                2: "古塔之谜",
+                3: "暗影之书",
+                4: "星辰初现",
+                5: "星辰觉醒",
+                6: "星核碎片"
+            };
+            return titles[chapter] || "星界迷踪";
+        }
+        
+        // 滚动进度
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            
+            document.querySelector('.progress').style.width = scrollPercent + '%';
+        });
+        
+        // 移动设备优化
+        function adjustForMobile() {
+            if (window.innerWidth <= 480) {
+                fontSize = 1.0;
+                updateFontSize();
+            }
+        }
+        
+        window.addEventListener('resize', adjustForMobile);
+        adjustForMobile();
     </script>
 </body>
 </html>
