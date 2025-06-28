@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>纯白文字小说阅读器</title>
+    <title>深色小说阅读器</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -11,13 +11,13 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s;
         }
 
         body {
             font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
             background-color: #121212;
-            color: #FFFFFF; /* 所有文字使用白色 */
+            color: #FFFFFF;
             line-height: 1.8;
             display: flex;
             flex-direction: column;
@@ -63,10 +63,11 @@
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
+            font-weight: bold;
         }
 
         .font-controls button:hover {
-            background: #002080;
+            background: #333;
             transform: scale(1.1);
         }
 
@@ -89,8 +90,8 @@
         }
 
         .control-btn:hover {
-            background: #002080;
-            border-color: #0040c0;
+            background: #333;
+            border-color: #444;
         }
 
         /* 阅读内容 */
@@ -114,7 +115,7 @@
             padding-bottom: 0.5rem;
             border-bottom: 1px solid #333;
             color: #FFFFFF;
-            text-align: center;
+            text-align: left;
             font-weight: 600;
         }
 
@@ -123,8 +124,8 @@
             margin: 1.3rem 0 0.8rem;
             color: #FFFFFF;
             font-weight: 600;
-            padding-left: 10px;
-            border-left: 4px solid #002080;
+            padding-left: 0;
+            border-left: none;
         }
 
         .markdown-content h3 {
@@ -136,12 +137,11 @@
 
         .markdown-content p {
             margin: 1.2rem 0;
-            text-align: justify;
-            text-indent: 2em;
+            text-align: left;
         }
 
         .markdown-content blockquote {
-            border-left: 4px solid #002080;
+            border-left: 4px solid #555;
             padding: 0.8rem 1.2rem;
             margin: 1.2rem 0;
             background: #1a1a1a;
@@ -156,7 +156,7 @@
             border-radius: 6px;
             overflow-x: auto;
             margin: 1.5rem 0;
-            border-left: 3px solid #002080;
+            border-left: 3px solid #555;
         }
 
         .markdown-content code {
@@ -222,7 +222,6 @@
             .font-controls button {
                 width: 32px;
                 height: 32px;
-                font-size: 0.9rem;
             }
             
             .markdown-content h1 {
@@ -235,10 +234,6 @@
 
             .markdown-content h3 {
                 font-size: 1.2rem;
-            }
-            
-            .markdown-content p {
-                text-indent: 1.5em;
             }
         }
 
@@ -266,10 +261,6 @@
                 gap: 5px;
                 text-align: center;
             }
-            
-            .markdown-content p {
-                text-indent: 1.2em;
-            }
         }
 
         /* 深色滚动条 */
@@ -290,18 +281,6 @@
             background: #444;
         }
         
-        /* 章节指示器 */
-        .chapter-indicator {
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 1.1rem;
-            color: #ffffff;
-            font-weight: 500;
-            padding: 8px;
-            background: rgba(0, 32, 128, 0.2);
-            border-radius: 4px;
-        }
-        
         /* 进度指示器 */
         .progress-bar {
             height: 4px;
@@ -315,9 +294,16 @@
         
         .progress {
             height: 100%;
-            background: #002080;
+            background: #555;
             width: 35%;
             transition: width 0.3s ease;
+        }
+        
+        .title {
+            text-align: center;
+            padding: 10px 0 5px;
+            font-size: 1.2rem;
+            color: #ccc;
         }
     </style>
 </head>
@@ -332,13 +318,10 @@
         <div class="reader-controls">
             <div class="font-controls">
                 <button id="decreaseFont" title="减小字体">
-                    <i class="fas fa-font"></i>
-                </button>
-                <button id="resetFont" title="重置字体">
-                    <i class="fas fa-text-height"></i>
+                    A-
                 </button>
                 <button id="increaseFont" title="增大字体">
-                    <i class="fas fa-text-width"></i>
+                    A+
                 </button>
             </div>
             <div class="nav-controls">
@@ -351,232 +334,67 @@
             </div>
         </div>
         <div class="reader-content">
-            <div class="chapter-indicator">第 5 章：星辰觉醒</div>
+            <div class="title">《暗影纪元》</div>
             <div id="markdown-content" class="markdown-content"></div>
         </div>
     </div>
 
     <!-- 底部信息 -->
     <footer>
-        <div>《星辰纪元》 · 作者：夜影 · 第5章/共95章</div>
-        <div>阅读时长：32分钟</div>
+        <div>第 7 章 · 作者：墨影 · 共85章</div>
+        <div>阅读时长：28分钟</div>
     </footer>
 
     <script>
         // 示例Markdown内容
         const markdownContent = `
-# 星辰觉醒
+# 暗影之塔
 
-夜幕笼罩着古老的星辉学院，林风独自站在观星台上，仰望着璀璨的银河。自从在古塔地下室遭遇暗影之书后，他体内的星辰之力开始觉醒。
+夜幕低垂，月光被浓密的乌云遮蔽。凯尔站在古老的高塔前，手中的火把在风中摇曳，投射出扭曲的影子。这座塔已经废弃了数百年，但今晚，塔顶却闪烁着不祥的紫色光芒。
 
-> "星辰之力是宇宙最原始的力量，是连接万物本源的桥梁。" —《星界秘典》
+"终于找到了..."凯尔喃喃自语，握紧了腰间的剑柄。
 
-## 星图初现
+## 塔内结构
 
-当林风凝视星空时，他眼前浮现出一幅复杂的星图：
+高塔内部的结构出人意料的复杂：
+
+| 层数 | 区域 | 特点 |
+|------|------|------|
+| 1层 | 入口大厅 | 布满陷阱的机关地板 |
+| 2层 | 藏书室 | 被诅咒的魔法典籍 |
+| 3层 | 实验室 | 炼金术士的遗留装置 |
+| 4层 | 观星台 | 能量波动源头 |
+| 5层 | 禁闭室 | 未知生物的低语 |
+
+凯尔小心翼翼地避开入口大厅的机关，地板上的符文在火把照耀下若隐若现。
 
 \`\`\`
-【星图：猎户座γ星系】
-能量等级：★★★★☆
-空间坐标：X-378, Y-219, Z-47
+【侦测到魔法陷阱】
+类型：火焰符文
+解除难度：中等
 \`\`\`
 
-这幅星图似乎与他体内的某种力量产生了共鸣。他伸出右手，尝试引导这股力量：
+## 古代符文
 
-\`\`\`javascript
-function activateStellarPower(user) {
-    const constellations = {
-        orion: { power: 4.5, element: "cosmic" },
-        lyra: { power: 3.8, element: "light" },
-        draco: { power: 4.2, element: "shadow" }
+在第二层的墙壁上，凯尔发现了刻满整个墙面的古代符文：
+
+```javascript
+// 符文翻译算法
+function translateElderFuthark(runes) {
+    const futharkMap = {
+        "ᚠ": "f", "ᚢ": "u", "ᚦ": "th", "ᚨ": "a",
+        "ᚱ": "r", "ᚲ": "k", "ᚷ": "g", "ᚹ": "w",
+        "ᚺ": "h", "ᚾ": "n", "ᛁ": "i", "ᛃ": "j",
+        "ᛇ": "ei", "ᛈ": "p", "ᛉ": "z", "ᛊ": "s",
+        "ᛏ": "t", "ᛒ": "b", "ᛖ": "e", "ᛗ": "m",
+        "ᛚ": "l", "ᛜ": "ng", "ᛞ": "d", "ᛟ": "o"
     };
     
-    // 检测用户星座亲和力
-    let affinity = 0;
-    for (const key in constellations) {
-        if (user.stellarSignature.includes(key)) {
-            affinity += constellations[key].power;
-        }
-    }
-    
-    // 觉醒判定
-    if (affinity >= 4.0) {
-        console.log("星辰之力觉醒！");
-        return {
-            status: "awakened",
-            affinity: affinity.toFixed(1),
-            abilities: ["星尘护盾", "银河光束"]
-        };
-    } else {
-        console.log("星辰之力未完全觉醒");
-        return { status: "dormant" };
-    }
+    return runes.split('').map(rune => 
+        futharkMap[rune] || '?'
+    ).join('');
 }
 
-const linFeng = {
-    name: "林风",
-    stellarSignature: ["orion", "lyra"]
-};
-
-const result = activateStellarPower(linFeng);
-console.log("觉醒结果:", result);
-\`\`\`
-
-## 星辰之力特性
-
-林风在《星界秘典》中发现了关于星辰之力的记载：
-
-| 特性 | 描述 | 应用 |
-|------|------|------|
-| **无界连接** | 可跨越空间与星体建立联系 | 星际通讯、空间感知 |
-| **能量转化** | 将星光转化为可用能量 | 攻击、防御、治疗 |
-| **时空共振** | 感知并影响时空结构 | 瞬间移动、时间缓流 |
-| **星灵召唤** | 召唤星界生物协助 | 战斗支援、知识获取 |
-
-> **系统提示：** 星辰之力等级提升至Lv2！解锁新能力【星尘护盾】。
-
-## 星界试炼
-
-次日清晨，学院导师艾莉娅带领林风来到星界试炼场：
-
-1. **星光隧道**  
-   穿过由旋转星尘构成的通道，躲避能量漩涡
-   
-2. **星座谜题**  
-   按正确顺序点亮猎户座七颗主星
-
-3. **星灵对决**  
-   召唤星灵与守护者战斗
-
-当林风通过最终试炼时，整个试炼场突然剧烈震动，穹顶化为浩瀚星空，无数星辰向他涌来，形成一道耀眼的光柱！
-
-\`\`\`
-【星界共鸣】激活！
-能量吸收率：98.7%
-星辰亲和力提升至S级！
-\`\`\`
-
-## 星辰之力的代价
-
-当晚，林风在冥想中感受到异常：
-
-- 右手掌心出现闪烁的星形印记
-- 耳边持续响起星界低语
-- 梦境中出现从未见过的星系景象
-
-> "星辰之力既是馈赠也是诅咒，觉醒者必须学会与宇宙共舞。" — 艾莉娅导师
-
-林风意识到，每次使用星辰之力都会在体内留下不可逆转的星痕。他翻开《星界秘典》最后一章，上面赫然写着：
-
-**"当星痕遍布全身，觉醒者将化为星辰，回归宇宙本源。"**
-
-## 命运的抉择
-
-在学院图书馆深处，林风发现了一本被封印的古籍：
-
-\`\`\`
-《逆星者手札》
-作者：卡里奥斯（最后一位逆星者）
-状态：封印中（需要星辰之血解封）
-\`\`\`
-
-书中记载了打破星辰诅咒的方法：
-
-1. 收集七大星核碎片
-2. 在星蚀之日举行仪式
-3. 以自身为容器重构星核
-
-林风抚摸着书页，陷入沉思。窗外，一颗流星划过夜空，仿佛在预示着什么...
-
----
-
-> 下一章预告：**星核碎片与远古遗迹**
-`;
-
-        // 渲染Markdown内容
-        document.getElementById('markdown-content').innerHTML = marked.parse(markdownContent);
-        
-        // 字体大小控制
-        let fontSize = 1.1;
-        
-        document.getElementById('increaseFont').addEventListener('click', () => {
-            if (fontSize < 1.5) {
-                fontSize += 0.1;
-                updateFontSize();
-            }
-        });
-        
-        document.getElementById('decreaseFont').addEventListener('click', () => {
-            if (fontSize > 0.8) {
-                fontSize -= 0.1;
-                updateFontSize();
-            }
-        });
-        
-        document.getElementById('resetFont').addEventListener('click', () => {
-            fontSize = 1.1;
-            updateFontSize();
-        });
-        
-        function updateFontSize() {
-            document.querySelector('.markdown-content').style.fontSize = fontSize + 'rem';
-        }
-        
-        // 章节导航
-        let currentChapter = 5;
-        const totalChapters = 95;
-        
-        document.getElementById('nextChapter').addEventListener('click', () => {
-            if (currentChapter < totalChapters) {
-                currentChapter++;
-                updateChapter();
-            }
-        });
-        
-        document.getElementById('prevChapter').addEventListener('click', () => {
-            if (currentChapter > 1) {
-                currentChapter--;
-                updateChapter();
-            }
-        });
-        
-        function updateChapter() {
-            document.querySelector('.chapter-indicator').textContent = `第 ${currentChapter} 章：${getChapterTitle(currentChapter)}`;
-            document.querySelector('footer div:first-child').textContent = 
-                `《星辰纪元》 · 作者：夜影 · 第${currentChapter}章/共${totalChapters}章`;
-        }
-        
-        function getChapterTitle(chapter) {
-            const titles = {
-                1: "星落之夜",
-                2: "古塔之谜",
-                3: "暗影之书",
-                4: "星辰初现",
-                5: "星辰觉醒",
-                6: "星核碎片"
-            };
-            return titles[chapter] || "星界迷踪";
-        }
-        
-        // 滚动进度
-        window.addEventListener('scroll', function() {
-            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrollPercent = (scrollTop / scrollHeight) * 100;
-            
-            document.querySelector('.progress').style.width = scrollPercent + '%';
-        });
-        
-        // 移动设备优化
-        function adjustForMobile() {
-            if (window.innerWidth <= 480) {
-                fontSize = 1.0;
-                updateFontSize();
-            }
-        }
-        
-        window.addEventListener('resize', adjustForMobile);
-        adjustForMobile();
-    </script>
-</body>
-</html>
+const wallInscription = "ᚨᛚᛚᚦᚨᛏ᛬ᚺᚨᛚᛚ᛬ᛞᚨᚱᚲᚾᛖᛋᛋ";
+console.log("译文:", translateElderFuthark(wallInscription));
+// 输出: allthat halldarkness
