@@ -13,11 +13,12 @@
             --bg-tertiary: #2d2d2d;
             --text-primary: #e0e0e0;
             --text-secondary: #b0b0b0;
-            --accent-color: #bb86fc;
+            --theme-color: #4a86e8; /* 默认蓝色 */
             --border-color: #333;
             --shadow-color: rgba(0, 0, 0, 0.5);
             --hover-color: #333;
             --font-size: 1.1rem;
+            --sidebar-width: 280px;
         }
 
         * {
@@ -57,7 +58,7 @@
         }
 
         .logo i {
-            color: var(--accent-color);
+            color: var(--theme-color);
             font-size: 1.8rem;
         }
 
@@ -66,28 +67,27 @@
             font-weight: 500;
         }
 
-        .controls {
+        .theme-selector {
             display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .control-btn {
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 8px 15px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
             gap: 8px;
-            transition: all 0.2s;
         }
 
-        .control-btn:hover {
-            background: var(--hover-color);
-            border-color: var(--accent-color);
+        .theme-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s;
+        }
+
+        .theme-color:hover {
+            transform: scale(1.2);
+        }
+
+        .theme-color.active {
+            border-color: white;
+            box-shadow: 0 0 5px rgba(255,255,255,0.5);
         }
 
         /* 主要内容区域 */
@@ -99,7 +99,7 @@
 
         /* 左侧导航栏 */
         .sidebar {
-            width: 280px;
+            width: var(--sidebar-width);
             background-color: var(--bg-secondary);
             border-right: 1px solid var(--border-color);
             display: flex;
@@ -148,8 +148,8 @@
 
         .chapter.active {
             background: var(--bg-tertiary);
-            border-left: 3px solid var(--accent-color);
-            color: var(--accent-color);
+            border-left: 3px solid var(--theme-color);
+            color: var(--theme-color);
         }
 
         .chapter-title {
@@ -204,44 +204,14 @@
             background: var(--hover-color);
         }
 
-        .progress-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex: 1;
-            max-width: 300px;
-            min-width: 200px;
-        }
-
-        .progress-bar {
-            flex: 1;
-            height: 6px;
-            background: var(--bg-tertiary);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .progress {
-            height: 100%;
-            background: var(--accent-color);
-            width: 45%;
-            border-radius: 3px;
-        }
-
-        .progress-text {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            min-width: 60px;
-        }
-
         /* 阅读内容 */
         .reader-content {
             flex: 1;
             overflow-y: auto;
             padding: 30px;
-            max-width: 900px;
             margin: 0 auto;
             width: 100%;
+            max-width: 1200px;
         }
 
         .markdown-content {
@@ -254,16 +224,19 @@
             margin: 1.5rem 0;
             padding-bottom: 0.5rem;
             border-bottom: 1px solid var(--border-color);
+            color: var(--theme-color);
         }
 
         .markdown-content h2 {
             font-size: 1.8rem;
             margin: 1.3rem 0 0.8rem;
+            color: var(--theme-color);
         }
 
         .markdown-content h3 {
             font-size: 1.5rem;
             margin: 1.1rem 0 0.7rem;
+            color: var(--theme-color);
         }
 
         .markdown-content p {
@@ -272,7 +245,7 @@
         }
 
         .markdown-content blockquote {
-            border-left: 4px solid var(--accent-color);
+            border-left: 4px solid var(--theme-color);
             padding: 0.5rem 1rem;
             margin: 1rem 0;
             background: var(--bg-tertiary);
@@ -299,6 +272,23 @@
         }
 
         .markdown-content strong {
+            font-weight: bold;
+        }
+
+        .markdown-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .markdown-content th, .markdown-content td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        .markdown-content th {
+            background-color: var(--bg-tertiary);
             font-weight: bold;
         }
 
@@ -334,11 +324,6 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
-
-            .progress-container {
-                width: 100%;
-                max-width: 100%;
-            }
         }
 
         @media (max-width: 600px) {
@@ -357,34 +342,6 @@
             .markdown-content h3 {
                 font-size: 1.3rem;
             }
-        }
-
-        /* 工具提示 */
-        .tooltip {
-            position: relative;
-        }
-
-        .tooltip .tooltip-text {
-            visibility: hidden;
-            width: 120px;
-            background-color: #000;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 0.8rem;
-        }
-
-        .tooltip:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
         }
 
         /* 深色滚动条 */
@@ -412,28 +369,23 @@
     <header>
         <div class="logo">
             <i class="fas fa-book-open"></i>
-            <h1>Markdown小说阅读器</h1>
+            <h1>深色Markdown小说阅读器</h1>
         </div>
-        <div class="controls">
-            <button class="control-btn tooltip">
-                <i class="fas fa-bookmark"></i> 书签
-                <span class="tooltip-text">添加书签</span>
-            </button>
-            <button class="control-btn tooltip">
-                <i class="fas fa-moon"></i> 夜间模式
-                <span class="tooltip-text">切换日/夜模式</span>
-            </button>
-            <button class="control-btn tooltip">
-                <i class="fas fa-download"></i> 下载
-                <span class="tooltip-text">下载当前章节</span>
-            </button>
+        <div class="theme-selector">
+            <div class="theme-color" style="background-color: #ff6b6b;" data-color="#ff6b6b" title="红色"></div>
+            <div class="theme-color" style="background-color: #ffa94d;" data-color="#ffa94d" title="橙色"></div>
+            <div class="theme-color" style="background-color: #ffd43b;" data-color="#ffd43b" title="黄色"></div>
+            <div class="theme-color" style="background-color: #51cf66;" data-color="#51cf66" title="绿色"></div>
+            <div class="theme-color" style="background-color: #20c997;" data-color="#20c997" title="青色"></div>
+            <div class="theme-color active" style="background-color: #4a86e8;" data-color="#4a86e8" title="蓝色"></div>
+            <div class="theme-color" style="background-color: #9a6ee8;" data-color="#9a6ee8" title="紫色"></div>
         </div>
     </header>
 
     <!-- 主要内容区域 -->
     <div class="main-container">
         <!-- 左侧导航栏 -->
-        <div class="sidebar">
+        <div class="sidebar open">
             <div class="sidebar-header">
                 <h2>章节列表</h2>
                 <button class="toggle-sidebar">
@@ -473,6 +425,22 @@
                     <div class="chapter-title">第8章 禁术卷轴</div>
                     <div class="chapter-info">字数: 3.6k · 阅读时间: 16分钟</div>
                 </div>
+                <div class="chapter">
+                    <div class="chapter-title">第9章 元素试炼</div>
+                    <div class="chapter-info">字数: 4.2k · 阅读时间: 19分钟</div>
+                </div>
+                <div class="chapter">
+                    <div class="chapter-title">第10章 龙之谷</div>
+                    <div class="chapter-info">字数: 4.5k · 阅读时间: 21分钟</div>
+                </div>
+                <div class="chapter">
+                    <div class="chapter-title">第11章 古龙契约</div>
+                    <div class="chapter-info">字数: 4.0k · 阅读时间: 18分钟</div>
+                </div>
+                <div class="chapter">
+                    <div class="chapter-title">第12章 深渊入侵</div>
+                    <div class="chapter-info">字数: 4.8k · 阅读时间: 22分钟</div>
+                </div>
             </div>
         </div>
 
@@ -483,24 +451,15 @@
                     <i class="fas fa-bars"></i> 目录
                 </button>
                 <div class="font-controls">
-                    <button id="decreaseFont" class="tooltip">
-                        <i class="fas fa-font"></i>
-                        <span class="tooltip-text">减小字体</span>
+                    <button id="decreaseFont" title="减小字体">
+                        <i class="fas fa-minus"></i>
                     </button>
-                    <button id="resetFont" class="tooltip">
+                    <button id="resetFont" title="重置字体">
                         <i class="fas fa-text-height"></i>
-                        <span class="tooltip-text">重置字体</span>
                     </button>
-                    <button id="increaseFont" class="tooltip">
-                        <i class="fas fa-text-width"></i>
-                        <span class="tooltip-text">增大字体</span>
+                    <button id="increaseFont" title="增大字体">
+                        <i class="fas fa-plus"></i>
                     </button>
-                </div>
-                <div class="progress-container">
-                    <div class="progress-bar">
-                        <div class="progress"></div>
-                    </div>
-                    <div class="progress-text">45% 已读</div>
                 </div>
                 <div>
                     <button class="control-btn">
@@ -519,12 +478,12 @@
 
     <!-- 底部信息 -->
     <footer>
-        <div>《异界征途》 · 作者：星辰幻影</div>
-        <div>阅读时长：1小时25分钟</div>
+        <div>《异界征途》 · 作者：星辰幻影 · 共128章</div>
+        <div>阅读进度：第1章/第128章</div>
     </footer>
 
     <script>
-        // 示例Markdown内容
+        // 示例Markdown内容（扩展版）
         const markdownContent = `
 # 第1章 穿越异世界
 
@@ -627,8 +586,38 @@ function calculateDamage(attacker, defender) {
 "既然命运让我来到这里，"林风握紧手中的短剑，眼神逐渐坚定，"那就让我看看，这个世界的巅峰究竟是何等风景！"
 
 紫色的月光透过树叶缝隙洒落，在他身后拉出一道长长的影子。幽暗森林的深处，未知的冒险正等待着他...
-        `;
 
+---
+
+## 世界背景设定
+
+艾泽拉大陆是一个充满魔法与奇迹的世界，由五个主要势力组成：
+
+| 势力 | 首都 | 主要种族 | 特点 |
+|------|------|----------|------|
+| **奥术帝国** | 星耀城 | 人类、精灵 | 魔法研究领先，学院林立 |
+| **兽人部落** | 铁血要塞 | 兽人、半兽人 | 崇尚武力，部落制度 |
+| **精灵王国** | 永歌森林 | 高等精灵、木精灵 | 自然魔法，长寿种族 |
+| **矮人联邦** | 钢铁山脉 | 山地矮人、灰矮人 | 锻造大师，地下城建造者 |
+| **自由城邦** | 黄金港 | 各族混居 | 商业中心，中立地区 |
+
+> **系统百科：** 艾泽拉大陆存在多种力量体系：
+> - **元素魔法**：操控火、水、风、土等自然元素
+> - **神圣法术**：信仰驱动的治疗与防护魔法
+> - **奥术技艺**：对魔法本质的研究与应用
+> - **战气修炼**：将生命能量转化为战斗力的武技
+> - **血脉传承**：通过古老血脉觉醒的特殊能力
+
+林风在月光下展开从月影狐身上获得的皮质地图，上面标记着最近的城镇——位于幽暗森林东侧的"暮光镇"。他收起地图，望向东方逐渐泛白的天空，踏上了前往人类聚居地的旅程...
+
+---
+
+## 第二章预告
+
+> 穿过危机四伏的幽暗森林，林风终于抵达暮光镇。这座边境小镇隐藏着怎样的秘密？在冒险者公会，他遇到了神秘的黑袍法师，对方似乎察觉到了系统的存在...
+
+**下一章：神秘的系统**`;
+        
         // 渲染Markdown内容
         document.getElementById('markdown-content').innerHTML = marked.parse(markdownContent);
         
@@ -677,6 +666,18 @@ function calculateDamage(attacker, defender) {
                 // 现在只是简单更新标题
                 const title = this.querySelector('.chapter-title').textContent;
                 document.querySelector('#markdown-content h1').textContent = title;
+            });
+        });
+        
+        // 主题颜色切换
+        document.querySelectorAll('.theme-color').forEach(color => {
+            color.addEventListener('click', function() {
+                const newColor = this.getAttribute('data-color');
+                document.documentElement.style.setProperty('--theme-color', newColor);
+                
+                // 更新激活状态
+                document.querySelectorAll('.theme-color').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
             });
         });
         
