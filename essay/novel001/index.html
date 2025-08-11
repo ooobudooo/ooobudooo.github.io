@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>无尾鲸</title>
-    <link rel="stylesheet" href="template">
+	<link rel="stylesheet" href="template">
 	<link rel="shortcut icon" href="ooobudooolow.png" type="image/x-icon" />
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
@@ -28,11 +28,10 @@
         .content-container {
             background-color: #111;
             border-radius: 8px;
-            max-width: 600px;
+            max-width: 700px;
             width: 100%;
-            padding: 80px 40px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-            text-align: center;
+            padding: 30px 40px; /* 上下减少一半 */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
         }
@@ -48,24 +47,59 @@
         }
         
         .content-display {
-            font-size: 3.5rem;
-            padding: 50px 0;
-            text-align: center;
-            line-height: 1.6;
+            font-size: 1.15rem;
+            padding: 20px 0; /* 上下减少一半 */
+            text-align: left;
+            line-height: 1.8;
+        }
+        
+        .content-display p {
+            margin: 12px 0;
         }
         
         .content-display strong {
             font-weight: bold;
             color: #fff;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-            display: block;
-            margin-bottom: 30px;
+            padding: 0 2px;
         }
         
         .content-display em {
             font-style: italic;
             color: #ddd;
-            display: block;
+            padding: 0 2px;
+        }
+        
+        .content-display h2 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin: 20px 0 12px 0;
+            color: #f0f0f0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .content-display h3 {
+            font-size: 1.25rem;
+            font-weight: 400;
+            margin: 18px 0 10px 0;
+            color: #f0f0f0;
+        }
+        
+        .content-display blockquote {
+            border-left: 3px solid #444;
+            padding: 8px 0 8px 20px;
+            margin: 15px 0;
+            color: #bbb;
+            background: rgba(50, 50, 50, 0.1);
+        }
+        
+        .content-display ul {
+            padding-left: 30px;
+            margin: 15px 0;
+        }
+        
+        .content-display li {
+            margin-bottom: 6px;
         }
         
         .design-element {
@@ -85,11 +119,20 @@
         
         @media (max-width: 600px) {
             .content-container {
-                padding: 60px 20px;
+                padding: 20px 15px; /* 移动端上下减少一半 */
             }
             
             .content-display {
-                font-size: 2.5rem;
+                font-size: 1.05rem;
+                padding: 15px 0; /* 移动端上下减少一半 */
+            }
+            
+            .content-display h2 {
+                font-size: 1.3rem;
+            }
+            
+            .content-display h3 {
+                font-size: 1.15rem;
             }
         }
     </style>
@@ -102,11 +145,11 @@
     </div>
 
     <script>
-        // 纯Markdown内容在此填充
+        // 纯Markdown内容
         const markdownContent = `
-#无尾鲸#
+#无尾鲸
 
-**作者：*有白给了***
+**作者：**有白给了***
 
 分别的时节如约而至，他走在屹立的香樟下，一片叶子落下，那是他无比熟悉的气息。攥着为过去画上句号的准考证，迈着沉重的步伐走出了考场，不时回顾走过之路，心中怅然，既是回顾简短中考的三天所走过之路，抑是重温漫长三年初中生涯所历经之路。
 
@@ -246,13 +289,6 @@
         
         // 渲染Markdown内容
         document.getElementById('content-display').innerHTML = marked.parse(markdownContent);
-        
-        // 添加简约动画效果
-        const content = document.getElementById('content-display');
-        setTimeout(() => {
-            content.style.opacity = 1;
-            content.style.transform = 'translateY(0)';
-        }, 100);
     </script>
 </body>
 </html>
