@@ -55,9 +55,9 @@ first_screen:
   enable: true  # Option values: true | false
 
   # First screen background image in light mode, You can use local image path or image link
-  background_img: /images/staryTrackBackground.webp
+  background_img: D:\WebsiteProj\ObudosZone\source\images\staryTrackBackground.webp
   # First screen background image in dark mode, You can use local image path or image link
-  background_img_dark: /images/staryTrcakBackground.webp
+  background_img_dark: D:\WebsiteProj\ObudosZone\source\images\staryTrcakBackground.webp
 
   # First screen description
   # You can use the "||" to begin a newline, maximum is two lines.
