@@ -79,7 +79,7 @@ exclude:
 ignore:
 
 # Extensions
-theme: keep
+theme: themes/keep
 
 # Deployment
 deploy:
