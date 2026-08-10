@@ -84,5 +84,5 @@ theme: keep
 # Deployment
 deploy:
   type: git
-  repo: https://github.com/ooobudooo/ooobudooo.github.io.git
+  repo: git@github.com:ooobudooo/ooobudooo.github.io.git
   branch: main
