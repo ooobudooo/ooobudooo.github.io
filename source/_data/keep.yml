@@ -351,9 +351,3 @@ inject:
     # - /js/custom-1.js
     # - /js/custom-2.js
     # - ...
-# Deployment
-## Docs: https://hexo.io/docs/one-command-deployment
-deploy:
-  type: git
-  repo: https://github.com/ooobudooo/ooobudooo.github.io.git
-  branch: main

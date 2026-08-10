@@ -6,3 +6,9 @@ node_modules/
 public/
 .deploy*/
 _multiconfig.yml
+
+# 主题通过 npm 依赖 hexo-theme-keep 安装（版本锁定在 package-lock.json）。
+# themes/ 下的本地克隆仅为调试用，不纳入版本控制，避免与 npm 包重复或退化成
+# 无 .gitmodules 的残缺 submodule 引用。
+themes/*
+!themes/.gitkeep
