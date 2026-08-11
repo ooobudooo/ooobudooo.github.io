@@ -61,7 +61,7 @@ first_screen:
 
   # First screen description
   # You can use the "||" to begin a newline, maximum is two lines.
-  description: The night is more alive than the day.||– Vincent van Gogh
+  description: We don't see things as they are, we see them as we are.|| — Anaïs Nin
   # If enable hitokoto, first screen description is different every time when you enter the website
   hitokoto: false      # Option values: true | false
 
