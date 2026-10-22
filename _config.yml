@@ -1,87 +1,31 @@
-# Site
-title: 林见的空间
-subtitle: "LINXIAN's Zone"
-description: ''
-keywords:
-author: LINXIAN
-language: zh-CN
-timezone: ''
+# =====================================================================================
+# Hexo 站点主配置
+#
+# 未在此声明的字段一律沿用 Hexo 内置默认值
+# （node_modules/hexo/dist/hexo/default_config.js），Hexo 会把它与本文档做「深合并」。
+# 因此这里只保留三类内容：
+#   1. 与默认值不同、用于定义本站身份的项；
+#   2. 主题名；
+#   3. 部署目标。
+# 其余诸如 permalink、source_dir、public_dir、highlight、per_page 等均与默认值一致，
+# 删掉后行为不变，故不再重复声明。
+# =====================================================================================
 
-# URL
-url: https://ooobudooo.github.io
-permalink: :year/:month/:day/:title/
-permalink_defaults:
-pretty_urls:
-  trailing_index: true
-  trailing_html: true
+# ---------- 站点身份 ----------
+title: 林见的空间                     # 站点标题，同时用于 <title> 与页头
+subtitle: "LINXIAN's Zone"           # 副标题，展示在标题下方
+author: LINXIAN                      # 作者名，用于文章署名
+language: zh-CN                      # 站点语言，决定界面文案与日期格式
+url: https://ooobudooo.github.io     # 站点正式地址，静态资源与 canonical 链接以它为基准
 
-# Directory
-source_dir: source
-public_dir: public
-tag_dir: tags
-archive_dir: archives
-category_dir: categories
-code_dir: downloads/code
-i18n_dir: :lang
-skip_render:
-
-# Writing
-new_post_name: :title.md
-default_layout: post
-titlecase: false
-external_link:
-  enable: true
-  field: site
-  exclude: ''
-filename_case: 0
-render_drafts: false
-post_asset_folder: false
-relative_link: false
-future: true
-syntax_highlighter: highlight.js
-highlight:
-  line_number: true
-  auto_detect: false
-  tab_replace: ''
-  wrap: true
-  hljs: false
-prismjs:
-  preprocess: true
-  line_number: true
-  tab_replace: ''
-
-# Home page setting
-index_generator:
-  path: ''
-  per_page: 10
-  order_by: -date
-
-# Category & Tag
-default_category: uncategorized
-category_map:
-tag_map:
-
-# Metadata elements
-meta_generator: true
-
-# Date / Time format
-date_format: YYYY-MM-DD
-time_format: HH:mm:ss
-updated_option: 'mtime'
-
-# Pagination
-per_page: 10
-pagination_dir: page
-
-# Include / Exclude file(s)
-include:
-exclude:
-ignore:
-
-# Extensions
+# ---------- 主题 ----------
+# 主题来自 npm 依赖 hexo-theme-keep（版本锁定在 package-lock.json），
+# 站点级覆盖配置写在 source/_data/keep.yml。
 theme: keep
 
-# Deployment
+# ---------- 部署 ----------
+# hexo-deployer-git 会把 public/ 的构建产物推送到下面的仓库与分支。
+# 约定：master 分支存放源码，main 分支只存放构建产物（GitHub Pages 发布源）。
 deploy:
   type: git
   repo: git@github.com:ooobudooo/ooobudooo.github.io.git
