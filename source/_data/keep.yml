@@ -9,13 +9,13 @@
 # ---------------------------------------------------------------------------------------
 base_info:
   # Theme primary color
-  primary_color: "#3399CC"
+  primary_color: "#446A37"
 
   # Blog website title
-  title: Obudo's Zone
+  title: 林见的空间 LINXIAN's Zone
 
   # Blog website author name
-  author: Obudo
+  author: Linxian
 
   # Author avatar, You can use local image path or image link
   avatar: /images/obudoLow.png
@@ -61,7 +61,7 @@ first_screen:
 
   # First screen description
   # You can use the "||" to begin a newline, maximum is two lines.
-  description: We don't see things as they are, we see them as we are.|| — Anaïs Nin
+  description: 林寒涧肃，见素抱朴||Mainfest plainness, keep to the uncarved block.
   # If enable hitokoto, first screen description is different every time when you enter the website
   hitokoto: false      # Option values: true | false
 

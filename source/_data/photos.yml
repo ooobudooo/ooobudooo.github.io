@@ -1,0 +1,15 @@
+# 相册数据 —— Keep 主题「相册」页面数据源
+# 主题在 generateBefore 阶段读取 source/_data/photos.yml（整个文件必须是一个「列表/数组」），
+# 注入 theme.source_data.photos，配合 source/photos/index.md 的 front-matter「template: photos」渲染相册。
+#
+# ⚠️ 重要：本文件顶层必须是数组，不要写成 `photos:` 包裹形式
+#   （即不要写 `photos:\n  - ...`）。否则 theme.source_data.photos 会变成对象而非数组，
+#    photo-album.ejs 里的 `for...of` 会因「对象不可迭代」而抛错，导致整页渲染为空。
+#
+# 字段说明：
+#   url  : 图片地址（必填，可用本地路径如 /images/xxx.jpg 或外链）
+#   name : 图片标题 / 鼠标悬停文字（必填）
+#
+# 下面这条是占位示例，请替换成你的真实照片后再部署：
+- url: /images/staryTrackBackground.jpg
+  name: 占位示例照片

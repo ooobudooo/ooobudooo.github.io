@@ -12,3 +12,8 @@ _multiconfig.yml
 # 无 .gitmodules 的残缺 submodule 引用。
 themes/*
 !themes/.gitkeep
+
+# WorkBuddy 本地记忆/工作区数据，绝不纳入版本控制。
+# 此前因缺失此规则，hexo deploy 的 git 操作一度逃逸到父项目仓库，
+# 误把 .workbuddy 提交进 master 并 force 推到 main，导致站点损坏。
+.workbuddy/

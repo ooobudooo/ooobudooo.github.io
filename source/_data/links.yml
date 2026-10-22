@@ -1,0 +1,19 @@
+# 友链数据 —— Keep 主题「友链」页面数据源
+# 主题在 generateBefore 阶段读取 source/_data/links.yml（整个文件必须是一个「列表/数组」），
+# 注入 theme.source_data.links，配合 source/links/index.md 的 front-matter「template: links」渲染友链列表。
+#
+# ⚠️ 重要：本文件顶层必须是数组，不要写成 `links:` 包裹形式
+#   （即不要写 `links:\n  - ...`）。否则 theme.source_data.links 会变成对象而非数组，
+#    friends-link.ejs 里的 `for...of` 会因「对象不可迭代」而抛错，导致整页渲染为空。
+#
+# 字段说明：
+#   title       : (可选) 分组标题，填写后该条目作为分组分隔，不渲染为友链卡片
+#   name        : 友链站点名称（必填）
+#   link        : 友链地址（必填）
+#   avatar      : (可选) 头像图片地址
+#   description : (可选) 一句话描述
+#
+# 下面这条是占位示例，请替换成你的真实友链后再部署：
+- name: MZTLAB
+  link: https://www.mztlab.net/
+  avatar: https://mztlab.net/favicon.svg
